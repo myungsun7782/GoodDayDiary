@@ -35,4 +35,8 @@ class ColorManager {
     func getVodka() -> UIColor {
         return UIColor(named: "Vodka")!
     }
+    
+    func getGainsboro() -> UIColor {
+        return UIColor(named: "Gainsboro")!
+    }
 }

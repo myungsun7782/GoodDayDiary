@@ -16,9 +16,47 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Rw-2J-nfK">
+                                <rect key="frame" x="30" y="71" width="133.66666666666666" height="20.333333333333329"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOOD DAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="298-d1-YG3">
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udP-xq-YFD">
+                                        <rect key="frame" x="94" y="0.0" width="39.666666666666657" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="Blue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-YK-cLt" customClass="FSCalendar">
+                                <rect key="frame" x="20" y="120.33333333333331" width="350" height="399.99999999999994"/>
+                                <color key="backgroundColor" name="White"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="I8D-wO-XSj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="White"/>
+                        <constraints>
+                            <constraint firstItem="9Rw-2J-nfK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="4sO-4q-q6p"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fLj-YK-cLt" secondAttribute="trailing" constant="20" id="JZQ-18-yuB"/>
+                            <constraint firstItem="fLj-YK-cLt" firstAttribute="top" secondItem="9Rw-2J-nfK" secondAttribute="bottom" constant="29" id="OqN-l7-red"/>
+                            <constraint firstItem="fLj-YK-cLt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Y1u-V5-vIN"/>
+                            <constraint firstItem="9Rw-2J-nfK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="fIl-kf-WQW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="calendarView" destination="fLj-YK-cLt" id="ceE-ax-x49"/>
+                        <outlet property="firstTitleLabel" destination="298-d1-YG3" id="IAi-7h-LjN"/>
+                        <outlet property="secondTitleLabel" destination="udP-xq-YFD" id="zEb-Pg-KEs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -26,6 +64,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Blue">
+            <color red="0.0" green="0.082352941176470587" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
