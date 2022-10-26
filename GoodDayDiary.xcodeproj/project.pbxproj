@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5794EDDA19A09EA3CE6202A /* Pods_GoodDayDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E101C8B2C264826248FF8762 /* Pods_GoodDayDiary.framework */; };
 		F0AD87DB2909499A00D35136 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD87DA2909499A00D35136 /* AppDelegate.swift */; };
 		F0AD87DD2909499A00D35136 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD87DC2909499A00D35136 /* SceneDelegate.swift */; };
 		F0AD87DF2909499A00D35136 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD87DE2909499A00D35136 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D6D5FA8F1F32F7042DB45A9 /* Pods-GoodDayDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodDayDiary.debug.xcconfig"; path = "Target Support Files/Pods-GoodDayDiary/Pods-GoodDayDiary.debug.xcconfig"; sourceTree = "<group>"; };
+		672F9E54FEB12167771806A0 /* Pods-GoodDayDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodDayDiary.release.xcconfig"; path = "Target Support Files/Pods-GoodDayDiary/Pods-GoodDayDiary.release.xcconfig"; sourceTree = "<group>"; };
+		E101C8B2C264826248FF8762 /* Pods_GoodDayDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodDayDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0AD87D72909499A00D35136 /* GoodDayDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodDayDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0AD87DA2909499A00D35136 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0AD87DC2909499A00D35136 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5794EDDA19A09EA3CE6202A /* Pods_GoodDayDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		882BAA297EDACB819CFA17B7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4D6D5FA8F1F32F7042DB45A9 /* Pods-GoodDayDiary.debug.xcconfig */,
+				672F9E54FEB12167771806A0 /* Pods-GoodDayDiary.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A96AB8D9FAA9F6C9B2A659E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E101C8B2C264826248FF8762 /* Pods_GoodDayDiary.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F0AD87CE2909499A00D35136 = {
 			isa = PBXGroup;
 			children = (
 				F0AD87D92909499A00D35136 /* GoodDayDiary */,
 				F0AD87D82909499A00D35136 /* Products */,
+				882BAA297EDACB819CFA17B7 /* Pods */,
+				A96AB8D9FAA9F6C9B2A659E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0AD87EB2909499A00D35136 /* Build configuration list for PBXNativeTarget "GoodDayDiary" */;
 			buildPhases = (
+				55F1CDDE28B91258699963D5 /* [CP] Check Pods Manifest.lock */,
 				F0AD87D32909499A00D35136 /* Sources */,
 				F0AD87D42909499A00D35136 /* Frameworks */,
 				F0AD87D52909499A00D35136 /* Resources */,
+				A1D8871FC301DDDA6EFC1F01 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -103,7 +130,7 @@
 				};
 			};
 			buildConfigurationList = F0AD87D22909499A00D35136 /* Build configuration list for PBXProject "GoodDayDiary" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -132,6 +159,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		55F1CDDE28B91258699963D5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodDayDiary-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1D8871FC301DDDA6EFC1F01 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodDayDiary/Pods-GoodDayDiary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodDayDiary/Pods-GoodDayDiary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodDayDiary/Pods-GoodDayDiary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F0AD87D32909499A00D35136 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		F0AD87EC2909499A00D35136 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D6D5FA8F1F32F7042DB45A9 /* Pods-GoodDayDiary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -295,6 +365,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,14 +373,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.myungsun.GoodDayDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F0AD87ED2909499A00D35136 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 672F9E54FEB12167771806A0 /* Pods-GoodDayDiary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -323,6 +398,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +406,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.myungsun.GoodDayDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
