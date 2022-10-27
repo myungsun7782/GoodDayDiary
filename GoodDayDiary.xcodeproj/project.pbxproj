@@ -22,6 +22,7 @@
 		F0AD880029094E2300D35136 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD87FF29094E2300D35136 /* ImageManager.swift */; };
 		F0AD8802290950F800D35136 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD8801290950F800D35136 /* ColorManager.swift */; };
 		F0AD8804290952BE00D35136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0AD8803290952BE00D35136 /* GoogleService-Info.plist */; };
+		F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C85290AA5A900ACAC83 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		F0AD87FF29094E2300D35136 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F0AD8801290950F800D35136 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		F0AD8803290952BE00D35136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F0D51C85290AA5A900ACAC83 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				F0AD87F129094CC100D35136 /* Cells */,
 				F0AD87F329094CDB00D35136 /* Managers */,
 				F0AD87F229094CD400D35136 /* Enums */,
+				F0D51C84290AA55800ACAC83 /* Extensions */,
 				F0AD87F429094CEB00D35136 /* Fonts */,
 				F0AD87E32909499A00D35136 /* Assets.xcassets */,
 				F0AD87E82909499A00D35136 /* Info.plist */,
@@ -169,6 +172,14 @@
 				F0AD87F529094D5200D35136 /* AppleSDGothicNeoH.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F0D51C84290AA55800ACAC83 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F0D51C85290AA5A900ACAC83 /* UIView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +307,7 @@
 				F0AD87FA29094DB100D35136 /* FontManager.swift in Sources */,
 				F0AD87FC29094DD900D35136 /* TimeManager.swift in Sources */,
 				F0AD87DD2909499A00D35136 /* SceneDelegate.swift in Sources */,
+				F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */,
 				F0AD8802290950F800D35136 /* ColorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
