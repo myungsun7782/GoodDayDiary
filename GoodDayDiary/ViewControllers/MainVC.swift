@@ -9,13 +9,16 @@ import UIKit
 import FSCalendar
 import FirebaseFirestore
 
-class MainVC: UIViewController {
+final class MainVC: UIViewController {
     // UILabel
     @IBOutlet weak var firstTitleLabel: UILabel!
     @IBOutlet weak var secondTitleLabel: UILabel!
     
     // FSCalendar
     @IBOutlet weak var calendarView: FSCalendar!
+    
+    // UIView
+    let unRegisteredDiaryView: UnregisteredDiaryView = UnregisteredDiaryView()
     
     // Constants
     let CALENDAR_HEADER_DATE_FORMAT = "MMMM  yyyy"
@@ -42,6 +45,7 @@ class MainVC: UIViewController {
     private func initUI() {
         configureLabels()
         configureCalendarView()
+        configureUnregisteredDiaryView()
     }
     
     private func configureCalendarView() {
@@ -68,6 +72,28 @@ class MainVC: UIViewController {
     private func configureLabels() {
         firstTitleLabel.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: TITLE_FONT_SIZE)
         secondTitleLabel.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: TITLE_FONT_SIZE)
+    }
+    
+    private func configureUnregisteredDiaryView() {
+        unRegisteredDiaryView.backgroundColor = ColorManager.shared.getWhite()
+        unRegisteredDiaryView.layer.cornerRadius = UNREGISTERED_DIARY_VIEW_RADIUS
+        unRegisteredDiaryView.layer.shadowOpacity = UNREGISTERED_DIARY_VIEW_SHADOW_OPACITY
+        unRegisteredDiaryView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(unRegisteredDiaryView)
+        setUnRegisteredDiaryViewConstraints()
+    }
+    
+    private func setUnRegisteredDiaryViewConstraints() {
+        let WIDTH_ANCHOR_CONSTANT: CGFloat = 390
+        let HEIGHT_ANCHOR_CONSTANT: CGFloat = 250
+
+        NSLayoutConstraint.activate([
+            unRegisteredDiaryView.widthAnchor.constraint(equalToConstant: WIDTH_ANCHOR_CONSTANT),
+            unRegisteredDiaryView.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR_CONSTANT),
+            unRegisteredDiaryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            unRegisteredDiaryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            unRegisteredDiaryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
     }
 }
 

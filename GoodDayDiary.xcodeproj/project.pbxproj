@@ -23,6 +23,7 @@
 		F0AD8802290950F800D35136 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD8801290950F800D35136 /* ColorManager.swift */; };
 		F0AD8804290952BE00D35136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0AD8803290952BE00D35136 /* GoogleService-Info.plist */; };
 		F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C85290AA5A900ACAC83 /* UIView.swift */; };
+		F0D51C88290AA79300ACAC83 /* UnregisteredDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F0AD8801290950F800D35136 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		F0AD8803290952BE00D35136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F0D51C85290AA5A900ACAC83 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredDiaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				F0AD87E52909499A00D35136 /* LaunchScreen.storyboard */,
 				F0AD87E02909499A00D35136 /* Main.storyboard */,
+				F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				F0AD87DD2909499A00D35136 /* SceneDelegate.swift in Sources */,
 				F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */,
 				F0AD8802290950F800D35136 /* ColorManager.swift in Sources */,
+				F0D51C88290AA79300ACAC83 /* UnregisteredDiaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
