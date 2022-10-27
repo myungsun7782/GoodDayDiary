@@ -29,6 +29,10 @@ class MainVC: UIViewController {
     let WEEKDAY_FONT_SIZE: CGFloat = 14
     let CALENDAR_TITLE_FONT_SIZE: CGFloat = 15
     let TITLE_FONT_SIZE: CGFloat = 20
+    let CALENDAR_EVENT_OFFSET_X: Double = -0.3
+    let CALENDAR_EVENT_OFFSET_Y: Double = -11
+    let CALENDAR_HEADER_TITLE_OFFSET_X: Double = -75
+    let CALENDAR_HEADER_TITLE_OFFSET_Y: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +60,8 @@ class MainVC: UIViewController {
         calendarView.appearance.eventDefaultColor = ColorManager.shared.getBlue()
         calendarView.appearance.eventSelectionColor = ColorManager.shared.getWhite()
         calendarView.appearance.borderRadius = CALENDAR_BORDER_RADIUS
-        calendarView.appearance.eventOffset = .init(x: -0.3, y: -11)
-        calendarView.appearance.headerTitleOffset = .init(x: -75, y: 0)
+        calendarView.appearance.eventOffset = .init(x: CALENDAR_EVENT_OFFSET_X, y: CALENDAR_EVENT_OFFSET_Y)
+        calendarView.appearance.headerTitleOffset = .init(x: CALENDAR_HEADER_TITLE_OFFSET_X, y: CALENDAR_HEADER_TITLE_OFFSET_Y)
         calendarView.appearance.headerTitleAlignment = .left
     }
     
@@ -65,7 +69,5 @@ class MainVC: UIViewController {
         firstTitleLabel.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: TITLE_FONT_SIZE)
         secondTitleLabel.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: TITLE_FONT_SIZE)
     }
-
-
 }
 
