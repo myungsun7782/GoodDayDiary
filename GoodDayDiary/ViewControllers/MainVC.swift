@@ -19,6 +19,7 @@ final class MainVC: UIViewController {
     
     // UIView
     let unRegisteredDiaryView: UnregisteredDiaryView = UnregisteredDiaryView()
+    let registeredDiaryView: RegisteredDiaryView = RegisteredDiaryView()
     
     // Constants
     let CALENDAR_HEADER_DATE_FORMAT = "MMMM  yyyy"
@@ -45,10 +46,13 @@ final class MainVC: UIViewController {
     private func initUI() {
         configureLabels()
         configureCalendarView()
-        configureUnregisteredDiaryView()
+//        configureUnregisteredDiaryView()
+        configureRegisteredDiaryView()
     }
     
     private func configureCalendarView() {
+        calendarView.dataSource = self
+        calendarView.delegate = self
         calendarView.appearance.headerTitleColor = .black
         calendarView.appearance.weekdayTextColor = ColorManager.shared.getPhilippineGray()
         calendarView.appearance.weekdayFont = FontManager.shared.getAppleSDGothicNeoBold(fontSize: WEEKDAY_FONT_SIZE)
@@ -94,6 +98,40 @@ final class MainVC: UIViewController {
             unRegisteredDiaryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             unRegisteredDiaryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+    }
+    
+    private func configureRegisteredDiaryView() {
+        registeredDiaryView.backgroundColor = ColorManager.shared.getWhite()
+        registeredDiaryView.layer.cornerRadius = UNREGISTERED_DIARY_VIEW_RADIUS
+        registeredDiaryView.layer.shadowOpacity = UNREGISTERED_DIARY_VIEW_SHADOW_OPACITY
+        registeredDiaryView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(registeredDiaryView)
+        setRegisteredDiaryViewConstraints()
+    }
+    
+    private func setRegisteredDiaryViewConstraints() {
+        let WIDTH_ANCHOR_CONSTANT: CGFloat = 390
+        let HEIGHT_ANCHOR_CONSTANT: CGFloat = 320
+        
+        NSLayoutConstraint.activate([
+            registeredDiaryView.widthAnchor.constraint(equalToConstant: WIDTH_ANCHOR_CONSTANT),
+            registeredDiaryView.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR_CONSTANT),
+            registeredDiaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            registeredDiaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            registeredDiaryView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+}
+
+extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
+    // 캘린더에서 날짜가 선택되었을 때 호출되는 메서드
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+    }
+    
+    // 캘린더에 표시되는 이벤트 갯수를 반환해주는 메서드
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return 0
     }
 }
 
