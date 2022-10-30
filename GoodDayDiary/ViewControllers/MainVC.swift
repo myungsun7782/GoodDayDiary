@@ -111,7 +111,7 @@ final class MainVC: UIViewController {
     
     private func setRegisteredDiaryViewConstraints() {
         let WIDTH_ANCHOR_CONSTANT: CGFloat = 390
-        let HEIGHT_ANCHOR_CONSTANT: CGFloat = 320
+        let HEIGHT_ANCHOR_CONSTANT: CGFloat = 305
         
         NSLayoutConstraint.activate([
             registeredDiaryView.widthAnchor.constraint(equalToConstant: WIDTH_ANCHOR_CONSTANT),
