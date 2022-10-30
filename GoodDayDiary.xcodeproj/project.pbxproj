@@ -26,6 +26,7 @@
 		F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C85290AA5A900ACAC83 /* UIView.swift */; };
 		F0D51C88290AA79300ACAC83 /* UnregisteredDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */; };
 		F0D7EF5E290EA4E1009D4A73 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D7EF5D290EA4E1009D4A73 /* UserDefaultsManager.swift */; };
+		F0D7EF60290EA874009D4A73 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D7EF5F290EA874009D4A73 /* Diary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		F0D51C85290AA5A900ACAC83 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredDiaryView.swift; sourceTree = "<group>"; };
 		F0D7EF5D290EA4E1009D4A73 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		F0D7EF5F290EA874009D4A73 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		F0AD87EE29094CA700D35136 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F0D7EF5F290EA874009D4A73 /* Diary.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				F0AD87FE29094E0B00D35136 /* FirebaseManager.swift in Sources */,
 				F0AD87DF2909499A00D35136 /* MainVC.swift in Sources */,
 				F0D7EF5E290EA4E1009D4A73 /* UserDefaultsManager.swift in Sources */,
+				F0D7EF60290EA874009D4A73 /* Diary.swift in Sources */,
 				F0AD880029094E2300D35136 /* ImageManager.swift in Sources */,
 				F0AD87DB2909499A00D35136 /* AppDelegate.swift in Sources */,
 				F036878F290C17A300D218C4 /* RegisteredDiaryView.swift in Sources */,
