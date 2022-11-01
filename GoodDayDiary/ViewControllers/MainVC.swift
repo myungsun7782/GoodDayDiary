@@ -40,14 +40,14 @@ final class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()
+        initUI()                                  
     }
     
     private func initUI() {
         configureLabels()
         configureCalendarView()
-//        configureUnregisteredDiaryView()
-        configureRegisteredDiaryView()
+        configureUnregisteredDiaryView()
+//        configureRegisteredDiaryView()
     }
     
     private func configureCalendarView() {
@@ -85,6 +85,7 @@ final class MainVC: UIViewController {
         unRegisteredDiaryView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(unRegisteredDiaryView)
         setUnRegisteredDiaryViewConstraints()
+        setUpRegisterButtonAction()
     }
     
     private func setUnRegisteredDiaryViewConstraints() {
@@ -120,6 +121,20 @@ final class MainVC: UIViewController {
             registeredDiaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             registeredDiaryView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setUpRegisterButtonAction() {
+        unRegisteredDiaryView.registerButton.addTarget(self, action: #selector(tapRegisterButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapRegisterButton() {
+        // MARK: - DetailDiaryVC 화면 이동
+        let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
+        
+        detailDiaryVC.modalPresentationStyle = .overFullScreen
+        detailDiaryVC.modalTransitionStyle = .crossDissolve
+        
+        present(detailDiaryVC, animated: true)
     }
 }
 

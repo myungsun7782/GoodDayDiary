@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="gTV-IL-0wX" customClass="PhotoCell" customModule="GoodDayDiary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="308" height="257"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="308" height="257"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SLE-ge-4Yc">
+                        <rect key="frame" x="5" y="5" width="298" height="247"/>
+                        <color key="backgroundColor" name="DarkGray"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGV-WY-gSv">
+                        <rect key="frame" x="283" y="0.0" width="25" height="25"/>
+                        <color key="backgroundColor" name="LightGray"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="EGe-G7-zYQ"/>
+                            <constraint firstAttribute="width" constant="25" id="YMC-Aj-KeH"/>
+                        </constraints>
+                        <color key="tintColor" name="White"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="xmark" catalog="system"/>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="IGV-WY-gSv" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="46r-XT-UUG"/>
+                <constraint firstAttribute="trailing" secondItem="SLE-ge-4Yc" secondAttribute="trailing" constant="5" id="Qrd-H7-lqh"/>
+                <constraint firstItem="SLE-ge-4Yc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="WpC-go-iGI"/>
+                <constraint firstItem="SLE-ge-4Yc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="cb2-4X-n9r"/>
+                <constraint firstAttribute="bottom" secondItem="SLE-ge-4Yc" secondAttribute="bottom" constant="5" id="kcs-tB-zMm"/>
+                <constraint firstAttribute="trailing" secondItem="IGV-WY-gSv" secondAttribute="trailing" id="yoD-pA-qDJ"/>
+            </constraints>
+            <size key="customSize" width="308" height="257"/>
+            <connections>
+                <outlet property="deleteButton" destination="IGV-WY-gSv" id="rfK-OR-6sk"/>
+                <outlet property="photoImageView" destination="SLE-ge-4Yc" id="6Hr-QF-nrv"/>
+            </connections>
+            <point key="canvasLocation" x="329.23076923076923" y="61.492890995260659"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="DarkGray">
+            <color red="0.66699999570846558" green="0.66699999570846558" blue="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightGray">
+            <color red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

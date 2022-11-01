@@ -67,8 +67,128 @@
             </objects>
             <point key="canvasLocation" x="125" y="-35"/>
         </scene>
+        <!--Detail DiaryVC-->
+        <scene sceneID="f5k-vJ-ZbZ">
+            <objects>
+                <viewController storyboardIdentifier="DetailDiaryVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KZw-aJ-JgU" customClass="DetailDiaryVC" customModule="GoodDayDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C3u-sS-Rfl">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ln5-pV-BQQ">
+                                <rect key="frame" x="0.0" y="89" width="390" height="625"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6A-Ic-2gL">
+                                <rect key="frame" x="24" y="738" width="342" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="5ck-cg-scK"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="완료">
+                                    <color key="titleColor" name="White"/>
+                                </state>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Hw-7a-c8k">
+                                <rect key="frame" x="20" y="59" width="171.66666666666666" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dt-p1-iyy">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="DWr-QV-Xlz"/>
+                                            <constraint firstAttribute="height" constant="30" id="rwk-DW-leA"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapBackButton:" destination="KZw-aJ-JgU" eventType="touchUpInside" id="xHB-vJ-iPf"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOOD DAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLg-4o-2LO">
+                                        <rect key="frame" x="38" y="0.0" width="86" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6R-Ws-e0j">
+                                        <rect key="frame" x="132" y="0.0" width="39.666666666666657" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="Blue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QId-y1-T7l"/>
+                        <color key="backgroundColor" name="White"/>
+                        <constraints>
+                            <constraint firstItem="E6A-Ic-2gL" firstAttribute="leading" secondItem="QId-y1-T7l" secondAttribute="leading" constant="24" id="119-3S-6t1"/>
+                            <constraint firstItem="Ln5-pV-BQQ" firstAttribute="leading" secondItem="QId-y1-T7l" secondAttribute="leading" id="Enn-qB-vLO"/>
+                            <constraint firstItem="QId-y1-T7l" firstAttribute="trailing" secondItem="E6A-Ic-2gL" secondAttribute="trailing" constant="24" id="FYQ-Oi-O6s"/>
+                            <constraint firstItem="QId-y1-T7l" firstAttribute="bottom" secondItem="E6A-Ic-2gL" secondAttribute="bottom" constant="12" id="Lav-kS-aMf"/>
+                            <constraint firstItem="8Hw-7a-c8k" firstAttribute="leading" secondItem="QId-y1-T7l" secondAttribute="leading" constant="20" id="Z0g-5e-0Hx"/>
+                            <constraint firstItem="Ln5-pV-BQQ" firstAttribute="trailing" secondItem="QId-y1-T7l" secondAttribute="trailing" id="ZKJ-LI-09v"/>
+                            <constraint firstItem="Ln5-pV-BQQ" firstAttribute="top" secondItem="8Hw-7a-c8k" secondAttribute="bottom" id="bZf-QX-U5e"/>
+                            <constraint firstItem="8Hw-7a-c8k" firstAttribute="top" secondItem="QId-y1-T7l" secondAttribute="top" constant="12" id="km5-0s-KFa"/>
+                            <constraint firstItem="E6A-Ic-2gL" firstAttribute="top" secondItem="Ln5-pV-BQQ" secondAttribute="bottom" constant="24" id="uN4-nw-rkv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="9dt-p1-iyy" id="3S8-b0-0ch"/>
+                        <outlet property="diaryTableView" destination="Ln5-pV-BQQ" id="dsQ-wF-ESV"/>
+                        <outlet property="finishButton" destination="E6A-Ic-2gL" id="HJx-NY-r3q"/>
+                        <outlet property="firstTitleLabel" destination="VLg-4o-2LO" id="27v-kJ-5vc"/>
+                        <outlet property="secondTitleLabel" destination="I6R-Ws-e0j" id="1Ax-Wz-qWU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O4v-ND-cfL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="949.23076923076917" y="-35.545023696682463"/>
+        </scene>
+        <!--Detail ImageVC-->
+        <scene sceneID="wBP-DV-YYl">
+            <objects>
+                <viewController storyboardIdentifier="DetailImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aI3-nv-F84" customClass="DetailImageVC" customModule="GoodDayDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XbU-vb-Zhu">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJU-Ul-6M3">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NVp-Xa-qbe">
+                                <rect key="frame" x="0.0" y="227" width="390" height="390"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="NVp-Xa-qbe" secondAttribute="height" multiplier="1:1" id="LAz-L0-VcK"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1Wj-Ct-VJZ"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xJU-Ul-6M3" secondAttribute="bottom" id="XbK-eD-qxw"/>
+                            <constraint firstItem="NVp-Xa-qbe" firstAttribute="centerY" secondItem="XbU-vb-Zhu" secondAttribute="centerY" id="eus-Di-7Lm"/>
+                            <constraint firstItem="xJU-Ul-6M3" firstAttribute="trailing" secondItem="1Wj-Ct-VJZ" secondAttribute="trailing" id="evr-0z-Gwl"/>
+                            <constraint firstItem="NVp-Xa-qbe" firstAttribute="leading" secondItem="1Wj-Ct-VJZ" secondAttribute="leading" id="mgA-Tb-LRX"/>
+                            <constraint firstItem="xJU-Ul-6M3" firstAttribute="top" secondItem="XbU-vb-Zhu" secondAttribute="top" id="pRk-Dc-Dk5"/>
+                            <constraint firstItem="xJU-Ul-6M3" firstAttribute="leading" secondItem="1Wj-Ct-VJZ" secondAttribute="leading" id="yxb-7U-Aky"/>
+                            <constraint firstItem="1Wj-Ct-VJZ" firstAttribute="trailing" secondItem="NVp-Xa-qbe" secondAttribute="trailing" id="zrM-js-EDa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="xJU-Ul-6M3" id="lVE-qQ-iIh"/>
+                        <outlet property="detailImageView" destination="NVp-Xa-qbe" id="Esd-Bc-lzl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="utI-p3-EpS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1764.6153846153845" y="-35.545023696682463"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <namedColor name="Blue">
             <color red="0.0" green="0.082000002264976501" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

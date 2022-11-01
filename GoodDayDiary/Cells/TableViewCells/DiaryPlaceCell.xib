@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="DiaryPlaceCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryPlaceCell" rowHeight="241" id="KGk-i7-Jjw" customClass="DiaryPlaceCell" customModule="GoodDayDiary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="466" height="241"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="466" height="241"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="fy4-3j-cH5">
+                        <rect key="frame" x="24" y="12" width="418" height="217"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3kk-LC-9P0">
+                                <rect key="frame" x="0.0" y="0.0" width="418" height="156"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ttr-4U-ztG">
+                                        <rect key="frame" x="0.0" y="0.0" width="418" height="156"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMK-si-Q6u">
+                                <rect key="frame" x="0.0" y="167" width="418" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Erb-lf-UlB">
+                                        <rect key="frame" x="0.0" y="0.0" width="418" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8hl-rL-7N5">
+                                                <rect key="frame" x="0.0" y="14.999999999999998" width="332.33333333333331" height="20.333333333333329"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 하루 기억에 남았던 장소를 기록해주세요 :)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQz-hn-aRe">
+                                                        <rect key="frame" x="16" y="0.0" width="316.33333333333331" height="20.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="LightGray"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="0.0"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lfh-7L-T90">
+                                                <rect key="frame" x="377" y="12.666666666666657" width="41" height="25"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eCv-1T-PYA">
+                                                        <rect key="frame" x="0.0" y="0.99999999999999822" width="25" height="23.333333333333336"/>
+                                                        <color key="tintColor" name="LightGray"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="25" id="eos-yP-aJN"/>
+                                                            <constraint firstAttribute="height" constant="25" id="v28-s8-HKi"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="16"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="White"/>
+                                <constraints>
+                                    <constraint firstItem="Erb-lf-UlB" firstAttribute="leading" secondItem="GMK-si-Q6u" secondAttribute="leading" id="CRa-4a-lT8"/>
+                                    <constraint firstItem="Erb-lf-UlB" firstAttribute="top" secondItem="GMK-si-Q6u" secondAttribute="top" id="OUv-F1-d2A"/>
+                                    <constraint firstAttribute="trailing" secondItem="Erb-lf-UlB" secondAttribute="trailing" id="U5v-6d-QXK"/>
+                                    <constraint firstAttribute="height" constant="50" id="XPT-z3-yqY"/>
+                                    <constraint firstAttribute="bottom" secondItem="Erb-lf-UlB" secondAttribute="bottom" id="rrW-qH-Hh1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="fy4-3j-cH5" secondAttribute="bottom" constant="12" id="6Qz-Xs-dg8"/>
+                    <constraint firstItem="fy4-3j-cH5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="eZ6-8B-Ul4"/>
+                    <constraint firstAttribute="trailing" secondItem="fy4-3j-cH5" secondAttribute="trailing" constant="24" id="mcv-LM-43r"/>
+                    <constraint firstItem="fy4-3j-cH5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="pu6-TB-gaD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="containerView" destination="GMK-si-Q6u" id="0IC-II-aap"/>
+                <outlet property="descriptionLabel" destination="PQz-hn-aRe" id="X2m-2e-lyd"/>
+                <outlet property="titleLabel" destination="Ttr-4U-ztG" id="2pu-Ti-9H8"/>
+            </connections>
+            <point key="canvasLocation" x="266.15384615384613" y="118.3649289099526"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="location.fill" catalog="system" width="128" height="119"/>
+        <namedColor name="LightGray">
+            <color red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -73,6 +73,7 @@ class RegisteredDiaryView: UIView {
         let FONT_SIZE: CGFloat = 18
         
         label.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: FONT_SIZE)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.text = "Diary Title"

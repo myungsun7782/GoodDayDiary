@@ -43,4 +43,8 @@ class ColorManager {
     func getDarkGray() -> UIColor {
         return UIColor(named: "DarkGray")!
     }
+    
+    func getLightGray() -> UIColor {
+        return UIColor(named: "LightGray")!
+    }
 }
