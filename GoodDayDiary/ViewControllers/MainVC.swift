@@ -21,6 +21,15 @@ final class MainVC: UIViewController {
     let unRegisteredDiaryView: UnregisteredDiaryView = UnregisteredDiaryView()
     let registeredDiaryView: RegisteredDiaryView = RegisteredDiaryView()
     
+    // Variables
+    var selectedDateStr: String!
+    var selectedDate: Date!
+    var registeredDiaryDateList: [String] = Array<String>()
+    var diaryList: [Diary] = Array<Diary>()
+    
+    var viewWidthConstraint: NSLayoutConstraint!
+    var viewHeightConstraint: NSLayoutConstraint!
+    
     // Constants
     let CALENDAR_HEADER_DATE_FORMAT = "MMMM  yyyy"
     let LOCALE_IDENTIFIER = "en_US"
@@ -46,8 +55,7 @@ final class MainVC: UIViewController {
     private func initUI() {
         configureLabels()
         configureCalendarView()
-        configureUnregisteredDiaryView()
-//        configureRegisteredDiaryView()
+        configureDiaryView(diaryDate: Date())
     }
     
     private func configureCalendarView() {
@@ -79,6 +87,7 @@ final class MainVC: UIViewController {
     }
     
     private func configureUnregisteredDiaryView() {
+        unRegisteredDiaryView.alpha = 0
         unRegisteredDiaryView.backgroundColor = ColorManager.shared.getWhite()
         unRegisteredDiaryView.layer.cornerRadius = UNREGISTERED_DIARY_VIEW_RADIUS
         unRegisteredDiaryView.layer.shadowOpacity = UNREGISTERED_DIARY_VIEW_SHADOW_OPACITY
@@ -102,6 +111,7 @@ final class MainVC: UIViewController {
     }
     
     private func configureRegisteredDiaryView() {
+        registeredDiaryView.alpha = 0
         registeredDiaryView.backgroundColor = ColorManager.shared.getWhite()
         registeredDiaryView.layer.cornerRadius = UNREGISTERED_DIARY_VIEW_RADIUS
         registeredDiaryView.layer.shadowOpacity = UNREGISTERED_DIARY_VIEW_SHADOW_OPACITY
@@ -136,16 +146,52 @@ final class MainVC: UIViewController {
         
         present(detailDiaryVC, animated: true)
     }
+    
+    private func configureDiaryView(diaryDate: Date) {
+        // 해당 diaryDate에 일기장이 등록되어 있는 경우(Diary Instance 존재)
+        if registeredDiaryDateList.contains(TimeManager.shared.dateToYearMonthDay(date: diaryDate)) {
+            
+            
+        } else {
+            selectedDate = diaryDate
+            configureUnregisteredDiaryView()
+            unRegisteredDiaryView.isHidden = false
+            registeredDiaryView.isHidden = true
+            animateUnRegisteredDiaryView()
+            unRegisteredDiaryView.dateLabel.text = TimeManager.shared.dateToYearMonthDay(date: diaryDate)
+        }
+    }
+    
+    private func animateUnRegisteredDiaryView() {
+        UIView.animate(withDuration: 0.5) {
+            self.unRegisteredDiaryView.alpha = 1
+        } completion: { (completion) in
+        }
+    }
+    
+    private func animateRegisteredDiaryView() {
+        UIView.animate(withDuration: 0.5) {
+            self.registeredDiaryView.alpha = 1
+        } completion: { (completion) in
+        }
+    }
 }
 
 extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
     // 캘린더에서 날짜가 선택되었을 때 호출되는 메서드
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
+        selectedDate = date
+        selectedDateStr = TimeManager.shared.dateToYearMonthDay(date: date)
+        configureDiaryView(diaryDate: date)
     }
     
     // 캘린더에 표시되는 이벤트 갯수를 반환해주는 메서드
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let dateStr = TimeManager.shared.dateToYearMonthDay(date: date)
+        
+        if registeredDiaryDateList.contains(dateStr) {
+            return 1
+        }
         return 0
     }
 }

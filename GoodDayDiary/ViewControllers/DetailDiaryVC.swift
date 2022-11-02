@@ -27,6 +27,7 @@ class DetailDiaryVC: UIViewController {
     // UIStackView
     @IBOutlet weak var diaryStackView: UIStackView!
     
+    // NSLayoutConstraint
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     // Variables
