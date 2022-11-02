@@ -19,4 +19,8 @@ target 'GoodDayDiary' do
   pod 'SwiftyJSON'
   pod 'BSImagePicker'
   pod 'Hero'
+  pod 'YPImagePicker'
+  pod 'RxCocoa'
+  pod 'RxSwift'
+  pod 'RxKeyboard'
 end

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class PhotoCell: UICollectionViewCell {
     // UIImageView
@@ -16,6 +17,14 @@ class PhotoCell: UICollectionViewCell {
     
     // Constants
     let IMAGE_CORNER_RADIUS: CGFloat = 15
+    
+    // RxSwift
+    var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
