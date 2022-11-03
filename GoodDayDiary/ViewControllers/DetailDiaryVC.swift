@@ -37,7 +37,7 @@ class DetailDiaryVC: UIViewController {
     
     // Constants
     let SECTION_COUNT: Int = 1
-    let TABLE_VIEW_NUMBER_OF_SECTIONS: Int = 4
+    let TABLE_VIEW_NUMBER_OF_SECTIONS: Int = 5
     let CONTENTS_PLACE_HOLDER = "당신의 소중한 하루를 기록해주세요 :)"
     let TITLE_FONT_SIZE: CGFloat = 20
     let BUTTON_FONT_SIZE: CGFloat = 18
@@ -67,13 +67,14 @@ class DetailDiaryVC: UIViewController {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardHeight in
-                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-8 : 0
+                print("RxKeyboard called!!")
+                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
                 
                 UIView.animate(withDuration: 0.1, animations: {
                     self.bottomConstraint.constant = -height
                 }, completion: { _ in
                     DispatchQueue.main.async {
-                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 3), at: .bottom, animated: true)
+                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .bottom, animated: true)
                     }
                 })
             })
@@ -88,6 +89,7 @@ class DetailDiaryVC: UIViewController {
     
     private func registerTableViewCells() {
         diaryTableView.register(UINib(nibName: "DiaryDateCell", bundle: nil), forCellReuseIdentifier: "DiaryDateCell")
+        diaryTableView.register(UINib(nibName: "DiaryTitleCell", bundle: nil), forCellReuseIdentifier: "DiaryTitleCell")
         diaryTableView.register(UINib(nibName: "DiaryPlaceCell", bundle: nil), forCellReuseIdentifier: "DiaryPlaceCell")
         diaryTableView.register(UINib(nibName: "DiaryPhotoCell", bundle: nil), forCellReuseIdentifier: "DiaryPhotoCell")
         diaryTableView.register(UINib(nibName: "DiaryContentCell", bundle: nil), forCellReuseIdentifier: "DiaryContentCell")
@@ -168,6 +170,8 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             return SECTION_COUNT
         } else if section == 3 {
             return SECTION_COUNT
+        } else if section == 4 {
+            return SECTION_COUNT
         }
         
         return 0
@@ -183,15 +187,19 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPlaceCell", for: indexPath) as! DiaryPlaceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryTitleCell", for: indexPath) as! DiaryTitleCell
             
             return cell
         } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPlaceCell", for: indexPath) as! DiaryPlaceCell
+            
+            return cell
+        } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPhotoCell", for: indexPath) as! DiaryPhotoCell
             cell.setData(detailDiaryVC: self, photoList: photoList)
             
             return cell
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryContentCell", for: indexPath) as! DiaryContentCell
     
             cell.contentTextView.delegate = self

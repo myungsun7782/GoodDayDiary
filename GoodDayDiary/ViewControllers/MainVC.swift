@@ -27,9 +27,6 @@ final class MainVC: UIViewController {
     var registeredDiaryDateList: [String] = Array<String>()
     var diaryList: [Diary] = Array<Diary>()
     
-    var viewWidthConstraint: NSLayoutConstraint!
-    var viewHeightConstraint: NSLayoutConstraint!
-    
     // Constants
     let CALENDAR_HEADER_DATE_FORMAT = "MMMM  yyyy"
     let LOCALE_IDENTIFIER = "en_US"

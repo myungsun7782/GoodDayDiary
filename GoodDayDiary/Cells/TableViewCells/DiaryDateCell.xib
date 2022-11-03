@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="326" height="84"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PcI-qg-EgS">
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="PcI-qg-EgS">
                         <rect key="frame" x="24" y="24" width="278" height="48"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbk-Er-Fhn">
@@ -30,10 +30,10 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMy-g5-ZBu">
-                                <rect key="frame" x="28" y="11.333333333333334" width="212" height="25.333333333333329"/>
+                                <rect key="frame" x="31" y="11.333333333333334" width="206" height="25.333333333333329"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diary Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAX-Dn-cYB">
-                                        <rect key="frame" x="0.0" y="5" width="212" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="5" width="206" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
