@@ -8,8 +8,9 @@
 import UIKit
 
 struct Diary {
+    var date: String!
     var title: String!
     var contents: String!
-    var date: String!
     var photoList: [UIImage]?
+    var place: String?
 }
