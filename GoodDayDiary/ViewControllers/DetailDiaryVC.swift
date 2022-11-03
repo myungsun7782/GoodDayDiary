@@ -65,22 +65,22 @@ class DetailDiaryVC: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [unowned self] keyboardHeight in
-                print("RxKeyboard called!!")
-                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
-                
-                UIView.animate(withDuration: 0.1, animations: {
-                    self.bottomConstraint.constant = -height
-                }, completion: { _ in
-                    DispatchQueue.main.async {
-                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .bottom, animated: true)
-                    }
-                })
-            })
-            .disposed(by: disposeBag)
+//        RxKeyboard.instance.visibleHeight
+//            .drive(onNext: { [unowned self] keyboardHeight in
+//                print("RxKeyboard called!!")
+//                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
+//
+//                UIView.animate(withDuration: 0.1, animations: {
+//                    self.bottomConstraint.constant = -height
+//                }, completion: { _ in
+//                    DispatchQueue.main.async {
+//                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .bottom, animated: true)
+//                    }
+//                })
+//            })
+//            .disposed(by: disposeBag)
     }
-        
+    
     private func configureTableView() {
         diaryTableView.dataSource = self
         diaryTableView.delegate = self
@@ -157,6 +157,23 @@ class DetailDiaryVC: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    private func configureTextViewKeyboard() {
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] keyboardHeight in
+                print("RxKeyboard called!!")
+                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
+                
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.bottomConstraint.constant = -height
+                }, completion: { _ in
+                    DispatchQueue.main.async {
+                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .bottom, animated: true)
+                    }
+                })
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // UITableView
@@ -191,18 +208,18 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryContentCell", for: indexPath) as! DiaryContentCell
+
+            cell.contentTextView.delegate = self
+
+            return cell
+        } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPlaceCell", for: indexPath) as! DiaryPlaceCell
             
             return cell
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPhotoCell", for: indexPath) as! DiaryPhotoCell
             cell.setData(detailDiaryVC: self, photoList: photoList)
-            
-            return cell
-        } else if indexPath.section == 4 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryContentCell", for: indexPath) as! DiaryContentCell
-    
-            cell.contentTextView.delegate = self
             
             return cell
         }
@@ -225,6 +242,7 @@ extension DetailDiaryVC: UITextViewDelegate {
             textView.text = nil
             textView.textColor = .black
         }
+        configureTextViewKeyboard()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
