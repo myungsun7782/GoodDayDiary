@@ -64,21 +64,6 @@ class DetailDiaryVC: UIViewController {
                 self.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-        
-//        RxKeyboard.instance.visibleHeight
-//            .drive(onNext: { [unowned self] keyboardHeight in
-//                print("RxKeyboard called!!")
-//                let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
-//
-//                UIView.animate(withDuration: 0.1, animations: {
-//                    self.bottomConstraint.constant = -height
-//                }, completion: { _ in
-//                    DispatchQueue.main.async {
-//                        self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 4), at: .bottom, animated: true)
-//                    }
-//                })
-//            })
-//            .disposed(by: disposeBag)
     }
     
     private func configureTableView() {
@@ -161,10 +146,9 @@ class DetailDiaryVC: UIViewController {
         self.view.endEditing(true)
     }
     
-    private func configureTextViewKeyboard() {
+    func configureTextViewKeyboard() {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardHeight in
-                print("RxKeyboard called!!")
                 let height = keyboardHeight > 0 ? -keyboardHeight+view.safeAreaInsets.bottom-10 : 0
                 
                 UIView.animate(withDuration: 0.1, animations: {
@@ -213,7 +197,7 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryContentCell", for: indexPath) as! DiaryContentCell
 
-            cell.contentTextView.delegate = self
+            cell.detailDiaryVC = self
 
             return cell
         } else if indexPath.section == 3 {
@@ -237,26 +221,3 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
         return TABLE_VIEW_NUMBER_OF_SECTIONS
     }
 }
-
-// UITextView
-extension DetailDiaryVC: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == CONTENTS_PLACE_HOLDER {
-            textView.text = nil
-            textView.textColor = .black
-        }
-        configureTextViewKeyboard()
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = CONTENTS_PLACE_HOLDER
-            textView.textColor = ColorManager.shared.getLightGray()
-        }
-    }
-    
-    //    func textViewDidChange(_ textView: UITextView) {
-    //        validateInputField()
-    //    }
-}
-

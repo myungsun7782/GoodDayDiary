@@ -14,6 +14,9 @@ class DiaryContentCell: UITableViewCell {
     // UITextView
     @IBOutlet weak var contentTextView: UITextView!
     
+    // Variable
+    var detailDiaryVC: DetailDiaryVC?
+    
     // Constants
     let TITLE_FONT_SIZE: CGFloat = 20
     let TEXT_VIEW_BODER_WIDTH: CGFloat = 1.0
@@ -41,6 +44,7 @@ class DiaryContentCell: UITableViewCell {
         let BOTTOM_EDGE_INSET: CGFloat = 8
         let FONT_SIZE: CGFloat = 15
         
+        contentTextView.delegate = self
         contentTextView.layer.borderWidth = TEXT_VIEW_BODER_WIDTH
         contentTextView.layer.borderColor = ColorManager.shared.getLightGray().cgColor
         contentTextView.layer.cornerRadius = TEXT_VIEW_BORDER_RADIUS
@@ -49,8 +53,29 @@ class DiaryContentCell: UITableViewCell {
         contentTextView.text = CONTENTS_PLACE_HOLDER
         contentTextView.textColor = ColorManager.shared.getLightGray()
     }
+}
 
+// UITextView
+extension DiaryContentCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == CONTENTS_PLACE_HOLDER {
+            textView.text = nil
+            textView.textColor = .black
+        }
+        
+        if let detailDiaryVC = detailDiaryVC {
+            detailDiaryVC.configureTextViewKeyboard()
+        }
+    }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = CONTENTS_PLACE_HOLDER
+            textView.textColor = ColorManager.shared.getLightGray()
+        }
+    }
     
-    
+    //    func textViewDidChange(_ textView: UITextView) {
+    //        validateInputField()
+    //    }
 }
