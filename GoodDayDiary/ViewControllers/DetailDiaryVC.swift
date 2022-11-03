@@ -141,11 +141,6 @@ class DetailDiaryVC: UIViewController {
         present(detailImageVC, animated: true)
     }
     
-    // 유저가 화면을 터치하면 호출되는 메서드
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     func configureTextViewKeyboard() {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardHeight in
@@ -158,6 +153,19 @@ class DetailDiaryVC: UIViewController {
                         self.diaryTableView.scrollToRow(at: IndexPath(row: 0, section: 2), at: .bottom, animated: true)
                     }
                 })
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func configureTextFieldKeyboard() {
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] keyboardHeight in
+                let height = keyboardHeight > 0 ? -keyboardHeight + view.safeAreaInsets.bottom - 10 : 0
+                
+                self.finishButton.snp.updateConstraints {
+                    $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(height)
+                }
+                view.layoutIfNeeded()
             })
             .disposed(by: disposeBag)
     }
@@ -192,6 +200,8 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryTitleCell", for: indexPath) as! DiaryTitleCell
+            
+            cell.detailDiaryVC = self
             
             return cell
         } else if indexPath.section == 2 {

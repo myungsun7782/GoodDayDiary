@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxKeyboard
+import SnapKit
 
 class DiaryTitleCell: UITableViewCell {
     // UILabel
@@ -14,11 +18,18 @@ class DiaryTitleCell: UITableViewCell {
     // UITextField
     @IBOutlet weak var titleTextField: UITextField!
     
+    // Variable
+    var detailDiaryVC: DetailDiaryVC?
+    
     // Constants
     let TITLE_FONT_SIZE: CGFloat = 20
     let TEXT_FIELD_BODER_WIDTH: CGFloat = 1.0
     let TEXT_FIELD_BORDER_RADIUS: CGFloat = 7
     let TEXT_FIELD_PLACE_HOLDER: String = "제목을 입력해주세요."
+    
+    // RxSwift
+    let disposeBag = DisposeBag()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         initUI()
@@ -36,6 +47,7 @@ class DiaryTitleCell: UITableViewCell {
     private func configureTextField() {
         let FONT_SIZE: CGFloat = 15
         
+        titleTextField.delegate = self
         titleTextField.layer.borderWidth = TEXT_FIELD_BODER_WIDTH
         titleTextField.layer.borderColor = ColorManager.shared.getLightGray().cgColor
         titleTextField.layer.cornerRadius = TEXT_FIELD_BORDER_RADIUS
@@ -43,5 +55,14 @@ class DiaryTitleCell: UITableViewCell {
         titleTextField.textColor = .black
         titleTextField.addLeftPadding()
         titleTextField.attributedPlaceholder = NSAttributedString(string: TEXT_FIELD_PLACE_HOLDER, attributes: [NSAttributedString.Key.foregroundColor : ColorManager.shared.getLightGray()])
+    }
+}
+
+// UITextField
+extension DiaryTitleCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let detailDiaryVC = detailDiaryVC {
+            detailDiaryVC.configureTextFieldKeyboard()
+        }
     }
 }
