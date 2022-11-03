@@ -32,6 +32,8 @@ class DetailDiaryVC: UIViewController {
     
     // Variables
     var photoList = Array<UIImage>()
+    var diaryEditorMode: DiaryEditorMode!
+    var diaryDate: Date!
     
     // Constants
     let SECTION_COUNT: Int = 1
@@ -48,7 +50,6 @@ class DetailDiaryVC: UIViewController {
         super.viewDidLoad()
         initUI()
         action()
-        //        print("\(diaryTableView.frame.height)")
     }
     
     private func initUI() {
@@ -78,7 +79,7 @@ class DetailDiaryVC: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
+        
     private func configureTableView() {
         diaryTableView.dataSource = self
         diaryTableView.delegate = self
@@ -177,7 +178,8 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryDateCell", for: indexPath) as! DiaryDateCell
             
             cell.pointView.makeViewGradient(view: cell.pointView)
-            
+            cell.setDiaryDate(diaryDate: diaryDate)
+            cell.configureDeleteButton(diaryEditorMode: diaryEditorMode)
             
             return cell
         } else if indexPath.section == 1 {

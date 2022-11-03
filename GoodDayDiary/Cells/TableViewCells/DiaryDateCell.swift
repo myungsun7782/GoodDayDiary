@@ -14,6 +14,9 @@ class DiaryDateCell: UITableViewCell {
     // UILabel
     @IBOutlet weak var diaryDateLabel: UILabel!
     
+    // UILabel
+    @IBOutlet weak var deleteButton: UIButton!
+    
     // Constants
     let FONT_SIZE: CGFloat = 24
     
@@ -28,5 +31,13 @@ class DiaryDateCell: UITableViewCell {
     
     private func configureDiaryDateLabel() {
         diaryDateLabel.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: FONT_SIZE)
+    }
+    
+    func setDiaryDate(diaryDate: Date) {
+        diaryDateLabel.text = TimeManager.shared.dateToYearMonthDay(date: diaryDate)
+    }
+    
+    func configureDeleteButton(diaryEditorMode: DiaryEditorMode) {
+        deleteButton.isHidden = diaryEditorMode == .new ? true : false
     }
 }

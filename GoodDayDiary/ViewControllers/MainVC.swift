@@ -141,6 +141,8 @@ final class MainVC: UIViewController {
         // MARK: - DetailDiaryVC 화면 이동
         let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
         
+        detailDiaryVC.diaryEditorMode = .new
+        detailDiaryVC.diaryDate = selectedDate
         detailDiaryVC.modalPresentationStyle = .overFullScreen
         detailDiaryVC.modalTransitionStyle = .crossDissolve
         
