@@ -82,6 +82,9 @@ class DetailDiaryVC: UIViewController {
     }
     
     private func configureTableView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tap.cancelsTouchesInView = false
+        diaryTableView.addGestureRecognizer(tap)
         diaryTableView.dataSource = self
         diaryTableView.delegate = self
         registerTableViewCells()
@@ -95,7 +98,7 @@ class DetailDiaryVC: UIViewController {
         diaryTableView.register(UINib(nibName: "DiaryContentCell", bundle: nil), forCellReuseIdentifier: "DiaryContentCell")
     }
     
-    @objc private func hideKeyboard(_ sender: Any) {
+    @objc private func hideKeyboard() {
         view.endEditing(true)
     }
     
