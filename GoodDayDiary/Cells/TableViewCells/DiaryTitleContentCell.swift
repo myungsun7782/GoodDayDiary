@@ -1,15 +1,19 @@
 //
-//  DiaryContentCell.swift
+//  DiaryTitleContentCell.swift
 //  GoodDayDiary
 //
-//  Created by myungsun on 2022/11/01.
+//  Created by myungsun on 2022/11/04.
 //
 
 import UIKit
 
-class DiaryContentCell: UITableViewCell {
+class DiaryTitleContentCell: UITableViewCell {
     // UILabel
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
+    
+    // UITextField
+    @IBOutlet weak var titleTextField: UITextField!
     
     // UITextView
     @IBOutlet weak var contentTextView: UITextView!
@@ -19,6 +23,9 @@ class DiaryContentCell: UITableViewCell {
     
     // Constants
     let TITLE_FONT_SIZE: CGFloat = 20
+    let TEXT_FIELD_BODER_WIDTH: CGFloat = 1.0
+    let TEXT_FIELD_BORDER_RADIUS: CGFloat = 7
+    let TEXT_FIELD_PLACE_HOLDER: String = "제목을 입력해주세요."
     let TEXT_VIEW_BODER_WIDTH: CGFloat = 1.0
     let TEXT_VIEW_BORDER_RADIUS: CGFloat = 7
     let CONTENTS_PLACE_HOLDER = "당신의 소중한 하루를 기록해주세요 :)"
@@ -30,11 +37,33 @@ class DiaryContentCell: UITableViewCell {
     
     private func initUI() {
         configureLabels()
+        configureTextField()
         configureTextView()
     }
-    
+
     private func configureLabels() {
         titleLabel.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: TITLE_FONT_SIZE)
+        contentLabel.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: TITLE_FONT_SIZE)
+    }
+    
+    private func configureTextField() {
+        let FONT_SIZE: CGFloat = 15
+        
+        titleTextField.delegate = self
+        titleTextField.addTarget(self, action: #selector(DidTitleTextFiledChange(_:)), for: .editingChanged)
+        titleTextField.layer.borderWidth = TEXT_FIELD_BODER_WIDTH
+        titleTextField.layer.borderColor = ColorManager.shared.getLightGray().cgColor
+        titleTextField.layer.cornerRadius = TEXT_FIELD_BORDER_RADIUS
+        titleTextField.font = FontManager.shared.getAppleSDGothicNeoRegular(fontSize: FONT_SIZE)
+        titleTextField.textColor = .black
+        titleTextField.addLeftPadding()
+        titleTextField.attributedPlaceholder = NSAttributedString(string: TEXT_FIELD_PLACE_HOLDER, attributes: [NSAttributedString.Key.foregroundColor : ColorManager.shared.getLightGray()])
+    }
+    
+    @objc private func DidTitleTextFiledChange(_ textField: UITextField) {
+        if let detailDiaryVC = detailDiaryVC {
+            detailDiaryVC.validateInputField(titleTextField: titleTextField, contentTextView: contentTextView)
+        }
     }
     
     private func configureTextView() {
@@ -55,8 +84,17 @@ class DiaryContentCell: UITableViewCell {
     }
 }
 
+// UITextField
+extension DiaryTitleContentCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let detailDiaryVC = detailDiaryVC {
+            detailDiaryVC.configureTextFieldKeyboard()
+        }
+    }
+}
+
 // UITextView
-extension DiaryContentCell: UITextViewDelegate {
+extension DiaryTitleContentCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == CONTENTS_PLACE_HOLDER {
             textView.text = nil
@@ -75,7 +113,10 @@ extension DiaryContentCell: UITextViewDelegate {
         }
     }
     
-    //    func textViewDidChange(_ textView: UITextView) {
-    //        validateInputField()
-    //    }
+    func textViewDidChange(_ textView: UITextView) {
+        if let detailDiaryVC = detailDiaryVC {
+            detailDiaryVC.validateInputField(titleTextField: titleTextField, contentTextView: contentTextView)
+        }
+    }
 }
+

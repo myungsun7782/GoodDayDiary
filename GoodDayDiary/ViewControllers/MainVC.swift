@@ -135,11 +135,12 @@ final class MainVC: UIViewController {
     }
     
     @objc private func tapRegisterButton() {
-        // MARK: - DetailDiaryVC 화면 이동
+        // MARK: - DetailDiaryVC 화면 이동 --> 새로운 일기장 추가
         let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
         
         detailDiaryVC.diaryEditorMode = .new
         detailDiaryVC.diaryDate = selectedDate
+        detailDiaryVC.diaryDelegate = self
         detailDiaryVC.modalPresentationStyle = .overFullScreen
         detailDiaryVC.modalTransitionStyle = .crossDissolve
         
@@ -192,6 +193,13 @@ extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
             return 1
         }
         return 0
+    }
+}
+
+// DiaryDelegate
+extension MainVC: DiaryDelegate {
+    func addDiary(_ diaryObj: Diary) {
+        print("123")
     }
 }
 

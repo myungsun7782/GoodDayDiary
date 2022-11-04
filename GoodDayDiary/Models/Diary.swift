@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DiaryDelegate: AnyObject {
+    func addDiary(_ diaryObj: Diary)
+}
+
 struct Diary {
     var date: String!
     var title: String!

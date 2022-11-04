@@ -57,10 +57,10 @@ class RegisteredDiaryView: UIView {
         return sv
     }()
     
-    let diaryImageView: UIImageView = {
+    lazy var diaryImageView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .clear
         imageView.image = UIImage(systemName: "person")
         imageView.tintColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
