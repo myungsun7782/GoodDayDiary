@@ -15,6 +15,6 @@ struct Diary {
     var date: String!
     var title: String!
     var contents: String!
-    var photoList: [UIImage]?
+    var photoUrlList: [String]?
     var place: String?
 }
