@@ -46,7 +46,12 @@ final class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()                                  
+        initUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        calendarView.reloadData()
     }
     
     private func initUI() {
@@ -115,6 +120,7 @@ final class MainVC: UIViewController {
         registeredDiaryView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(registeredDiaryView)
         setRegisteredDiaryViewConstraints()
+        setUpSeeMoreButtonAction()
     }
     
     private func setRegisteredDiaryViewConstraints() {
@@ -147,11 +153,42 @@ final class MainVC: UIViewController {
         present(detailDiaryVC, animated: true)
     }
     
+    private func setUpSeeMoreButtonAction() {
+        registeredDiaryView.seeMoreButton.addTarget(self, action: #selector(tapSeeMoreButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapSeeMoreButton() {
+        // MARK: - DetailDiaryVC 화면 이동 --> 기존 일기장 수정
+        let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
+        
+        detailDiaryVC.diaryEditorMode = .edit
+        detailDiaryVC.diaryDate = selectedDate
+        detailDiaryVC.diaryDelegate = self
+        detailDiaryVC.modalPresentationStyle = .overFullScreen
+        detailDiaryVC.modalTransitionStyle = .crossDissolve
+        
+        present(detailDiaryVC, animated: true)
+    }
+    
     private func configureDiaryView(diaryDate: Date) {
         // 해당 diaryDate에 일기장이 등록되어 있는 경우(Diary Instance 존재)
         if registeredDiaryDateList.contains(TimeManager.shared.dateToYearMonthDay(date: diaryDate)) {
+            let diaryObject = searchDiaryObject(diaryDate: diaryDate)
             
-            
+            configureRegisteredDiaryView()
+            registeredDiaryView.isHidden = false
+            unRegisteredDiaryView.isHidden = true
+            animateRegisteredDiaryView()
+            registeredDiaryView.dateLabel.text = TimeManager.shared.dateToYearMonthDay(date: diaryObject.date)
+            registeredDiaryView.diaryTitleLabel.text = diaryObject.title
+            registeredDiaryView.diaryContentsLabel.text = diaryObject.contents
+//            guard let photoIdList = diaryObject.photoUrlList else {
+//                registeredDiaryView.diaryImageView.image = UIImage(named: "SplashImage")
+//                return
+//            }
+//            FirebaseManager.shared.downloadImage(photoFilePath: photoIdList[0]) { [weak self] image in
+//                self!.registeredDiaryView.diaryImageView.image = image
+//            }
         } else {
             selectedDate = diaryDate
             configureUnregisteredDiaryView()
@@ -174,6 +211,21 @@ final class MainVC: UIViewController {
             self.registeredDiaryView.alpha = 1
         } completion: { (completion) in
         }
+    }
+    
+    // MARK: diaryDate에 해당하는 diary 객체를 반환해주는 메소드
+    private func searchDiaryObject(diaryDate: Date) -> Diary {
+        // 이 메소드를 호출하는 경우는 diaryDate에 해당 diary가 존재한다는 가정 하에 실행하기 때문에 diary Instance가 존재할 수 밖에 없음.
+        var diaryObject: Diary!
+        let diaryDateStr = TimeManager.shared.dateToYearMonthDay(date: diaryDate)
+        
+        for diary in diaryList {
+            if diaryDateStr == TimeManager.shared.dateToYearMonthDay(date: diary.date) {
+                diaryObject = diary
+                break
+            }
+        }
+        return diaryObject
     }
 }
 
@@ -198,8 +250,17 @@ extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
 
 // DiaryDelegate
 extension MainVC: DiaryDelegate {
-    func addDiary(_ diaryObj: Diary) {
-        print("123")
+    func addDiary(_ diaryObj: Diary, photoList: [UIImage]?) {
+        diaryList.append(diaryObj)
+        registeredDiaryDateList.append(TimeManager.shared.dateToYearMonthDay(date: diaryObj.date))
+        selectedDate = diaryObj.date
+        configureDiaryView(diaryDate: selectedDate)
+        calendarView.reloadData()
+        guard let photoList = photoList else {
+            registeredDiaryView.diaryImageView.image = UIImage(named: "SplashImage")
+            return
+        }
+        registeredDiaryView.diaryImageView.image = photoList[0]
     }
 }
 

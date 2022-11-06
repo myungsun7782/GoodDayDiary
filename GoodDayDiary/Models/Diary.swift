@@ -8,11 +8,11 @@
 import UIKit
 
 protocol DiaryDelegate: AnyObject {
-    func addDiary(_ diaryObj: Diary)
+    func addDiary(_ diaryObj: Diary, photoList: [UIImage]?)
 }
 
 struct Diary {
-    var date: String!
+    var date: Date!
     var title: String!
     var contents: String!
     var photoUrlList: [String]?

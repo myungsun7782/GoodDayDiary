@@ -35,6 +35,8 @@ class DetailDiaryVC: UIViewController {
     var diaryEditorMode: DiaryEditorMode!
     var diaryDate: Date!
     var diaryDelegate: DiaryDelegate?
+    var photoIdList = Array<String>()
+    var diaryTitleContentCell: DiaryTitleContentCell?
     
     // Constants
     let SECTION_COUNT: Int = 1
@@ -63,6 +65,23 @@ class DetailDiaryVC: UIViewController {
         backButton.rx.tap
             .subscribe(onNext: { _ in
                 self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        finishButton.rx.tap
+            .subscribe(onNext: { _ in
+                // 일기를 새로 작성하는 경우
+                if self.diaryEditorMode == .new {
+                    if let diaryTitleContentCell = self.diaryTitleContentCell {
+                        let date = self.diaryDate
+                        guard let title = diaryTitleContentCell.titleTextField.text else { return }
+                        guard let content = diaryTitleContentCell.contentTextView.text else { return }
+                        self.uploadImages()
+                        let diary = Diary(date: date, title: title, contents: content, photoUrlList: self.photoIdList)
+                        self.diaryDelegate?.addDiary(diary, photoList: self.photoList)
+                        self.dismiss(animated: true)
+                    }
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -181,6 +200,14 @@ class DetailDiaryVC: UIViewController {
             finishButton.titleLabel?.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: BUTTON_FONT_SIZE)
         }
     }
+    
+    private func uploadImages() {
+        for image in photoList {
+            let photoId = UUID().uuidString
+            photoIdList.append(photoId)
+            FirebaseManager.shared.uploadImage(img: image, filePath: photoId)
+        }
+    }
 }
 
 // UITableView
@@ -209,6 +236,7 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryTitleContentCell", for: indexPath) as! DiaryTitleContentCell
+            diaryTitleContentCell = cell
             cell.detailDiaryVC = self
             validateInputField(titleTextField: cell.titleTextField, contentTextView: cell.contentTextView)
             
@@ -230,3 +258,4 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
         return TABLE_VIEW_NUMBER_OF_SECTIONS
     }
 }
+

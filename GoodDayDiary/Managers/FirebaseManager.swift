@@ -14,7 +14,7 @@ class FirebaseManager {
     private let COLLECTION_NAME: String = "users"
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-    private let stroageUrl = "gs://gooddaydiary-74ec4.appspot.com/"
+    private let storageUrl = "gs://gooddaydiary-74ec4.appspot.com/"
     
     private init() {}
     
@@ -33,11 +33,23 @@ class FirebaseManager {
         }
     }
     
-    func fetchImage(imgView: UIImageView, photoFilePath: String) {
-        storage.reference(forURL: stroageUrl + photoFilePath).downloadURL { (url, error) in
-            let data = NSData(contentsOf: url!)
-            let image = UIImage(data: data! as Data)
-            imgView.image = image
+//    func fetchImage(imgView: UIImageView, photoFilePath: String) {
+//        storage.reference(forURL: stroageUrl + photoFilePath).downloadURL { (url, error) in
+//            let data = NSData(contentsOf: url!)
+//            let image = UIImage(data: data! as Data)
+//            imgView.image = image
+//        }
+//    }
+    func downloadImage(photoFilePath: String, completion: @escaping (UIImage?) -> Void) {
+        let storageReference = Storage.storage().reference(forURL: storageUrl + photoFilePath)
+        let megaByte = Int64(1 * 1024 * 1024)
+        
+        storageReference.getData(maxSize: megaByte) { data, error in
+            guard let imageData = data else {
+                completion(nil)
+                return
+            }
+            completion(UIImage(data: imageData))
         }
     }
 }

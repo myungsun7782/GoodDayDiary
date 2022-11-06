@@ -61,7 +61,7 @@ class RegisteredDiaryView: UIView {
         let imageView = UIImageView()
         
         imageView.backgroundColor = .clear
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(named: "SplashImage")
         imageView.tintColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
