@@ -16,5 +16,5 @@ struct Diary {
     var title: String!
     var contents: String!
     var photoUrlList: [String]?
-    var place: String?
+//    var place: String?
 }

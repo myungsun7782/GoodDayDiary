@@ -33,7 +33,7 @@ class FirebaseManager {
         }
     }
     
-    func downloadImage(imgView: UIImageView, photoFilePath: String) {
+    func fetchImage(imgView: UIImageView, photoFilePath: String) {
         storage.reference(forURL: stroageUrl + photoFilePath).downloadURL { (url, error) in
             let data = NSData(contentsOf: url!)
             let image = UIImage(data: data! as Data)
