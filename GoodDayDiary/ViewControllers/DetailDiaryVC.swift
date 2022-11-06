@@ -78,9 +78,11 @@ class DetailDiaryVC: UIViewController {
                         guard let content = diaryTitleContentCell.contentTextView.text else { return }
                         self.uploadImages()
                         let diary = Diary(date: date, title: title, contents: content, photoUrlList: self.photoIdList)
-                        self.diaryDelegate?.addDiary(diary, photoList: self.photoList)
+                        self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: self.diaryEditorMode)
                         self.dismiss(animated: true)
                     }
+                } else if self.diaryEditorMode == .edit {
+                    // MARK: - 일기장 수정 로직 구현
                 }
             })
             .disposed(by: disposeBag)

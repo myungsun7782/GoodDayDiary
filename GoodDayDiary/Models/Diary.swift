@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DiaryDelegate: AnyObject {
-    func addDiary(_ diaryObj: Diary, photoList: [UIImage]?)
+    func manageDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode)
 }
 
 struct Diary {
