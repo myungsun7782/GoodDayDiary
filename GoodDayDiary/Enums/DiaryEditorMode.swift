@@ -10,4 +10,5 @@ import UIKit
 enum DiaryEditorMode {
     case new
     case edit
+    case delete
 }

@@ -37,6 +37,7 @@ class DetailDiaryVC: UIViewController {
     var diaryDelegate: DiaryDelegate?
     var photoIdList = Array<String>()
     var diaryTitleContentCell: DiaryTitleContentCell?
+    var diaryObj: Diary?
     
     // Constants
     let SECTION_COUNT: Int = 1
@@ -70,22 +71,41 @@ class DetailDiaryVC: UIViewController {
         
         finishButton.rx.tap
             .subscribe(onNext: { _ in
+                let date = self.diaryDate
                 // 일기를 새로 작성하는 경우
                 if self.diaryEditorMode == .new {
                     if let diaryTitleContentCell = self.diaryTitleContentCell {
-                        let date = self.diaryDate
                         guard let title = diaryTitleContentCell.titleTextField.text else { return }
                         guard let content = diaryTitleContentCell.contentTextView.text else { return }
-                        self.uploadImages()
+                        self.uploadImages() // 이미지 FireStorage에 업로드
                         let diary = Diary(date: date, title: title, contents: content, photoUrlList: self.photoIdList)
                         self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: self.diaryEditorMode)
                         self.dismiss(animated: true)
                     }
                 } else if self.diaryEditorMode == .edit {
                     // MARK: - 일기장 수정 로직 구현
+                    if let diaryTitleContentCell = self.diaryTitleContentCell {
+                        guard var diary = self.diaryObj else { return }
+                        guard let title = diaryTitleContentCell.titleTextField.text else { return }
+                        guard let content = diaryTitleContentCell.contentTextView.text else { return }
+                        diary.title = title
+                        diary.contents = content
+                        self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: .edit)
+                        self.dismiss(animated: true)
+                    }
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func setData(cell: DiaryTitleContentCell) {
+        if diaryEditorMode == .edit {
+            if let diary = diaryObj {
+                cell.titleTextField.text = diary.title
+                cell.contentTextView.textColor = .black
+                cell.contentTextView.text = diary.contents
+            }
+        }
     }
     
     private func configureTableView() {
@@ -231,6 +251,7 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryDateCell", for: indexPath) as! DiaryDateCell
             
+            cell.detailDiaryVC = self
             cell.pointView.makeViewGradient(view: cell.pointView)
             cell.setDiaryDate(diaryDate: diaryDate)
             cell.configureDeleteButton(diaryEditorMode: diaryEditorMode)
@@ -238,6 +259,7 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryTitleContentCell", for: indexPath) as! DiaryTitleContentCell
+            setData(cell: cell)
             diaryTitleContentCell = cell
             cell.detailDiaryVC = self
             validateInputField(titleTextField: cell.titleTextField, contentTextView: cell.contentTextView)

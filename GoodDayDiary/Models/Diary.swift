@@ -11,7 +11,7 @@ protocol DiaryDelegate: AnyObject {
     func manageDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode)
 }
 
-struct Diary {
+struct Diary: Codable {
     var date: Date!
     var title: String!
     var contents: String!
