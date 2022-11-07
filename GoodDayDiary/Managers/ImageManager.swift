@@ -8,12 +8,17 @@
 import UIKit
 
 // Add ImageName
-//enum ImageName: String {
-//
-//}
+enum ImageName: String {
+    case SPLASH_IMAGE = "SplashImage"
+    case BUTTERFLY_IMAGE = "ButterFlyImage"
+}
 
 class ImageManager {
     static let shared = ImageManager()
     
     private init() {}
+    
+    func getImage(_ imageName: ImageName) -> UIImage {
+        return UIImage(named: imageName.rawValue)!
+    }
 }

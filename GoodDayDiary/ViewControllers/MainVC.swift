@@ -250,7 +250,7 @@ extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
 
 // DiaryDelegate
 extension MainVC: DiaryDelegate {
-    func addDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode) {
+    func manageDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode) {
         if diaryEditorMode == .new {
             diaryList.append(diaryObj)
             registeredDiaryDateList.append(TimeManager.shared.dateToYearMonthDay(date: diaryObj.date))
@@ -262,7 +262,7 @@ extension MainVC: DiaryDelegate {
                 return
             }
             registeredDiaryView.diaryImageView.image = photoList[0]
-        } else if diaryEditorMode == edit {
+        } else if diaryEditorMode == .edit {
             // MARK: - 일기장 수정 후 로직 구현
             
         }
