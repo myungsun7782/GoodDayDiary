@@ -35,7 +35,7 @@ class RegisteredDiaryView: UIView {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        let FONT_SIZE: CGFloat = 18
+        let FONT_SIZE: CGFloat = 19
         
         label.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: FONT_SIZE)
         label.text = TimeManager.shared.dateToYearMonthDay(date: Date())
@@ -70,7 +70,7 @@ class RegisteredDiaryView: UIView {
     
     let diaryTitleLabel: UILabel = {
         let label = UILabel()
-        let FONT_SIZE: CGFloat = 18
+        let FONT_SIZE: CGFloat = 19
         
         label.font = FontManager.shared.getAppleSDGothicNeoExtraBold(fontSize: FONT_SIZE)
         label.textColor = .black
