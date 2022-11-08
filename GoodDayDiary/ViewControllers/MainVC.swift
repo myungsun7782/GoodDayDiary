@@ -312,6 +312,10 @@ extension MainVC: DiaryDelegate {
             configureDiaryView(diaryDate: selectedDate)
         }
         calendarView.reloadData()
+        LoadingManager.shared.showLoading()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            LoadingManager.shared.hideLoading()
+        }
     }
 }
 

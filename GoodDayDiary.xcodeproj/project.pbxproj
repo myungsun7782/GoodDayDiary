@@ -15,6 +15,7 @@
 		F04DE7E42915117A00077C45 /* DiaryTitleContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04DE7E22915117A00077C45 /* DiaryTitleContentCell.swift */; };
 		F04DE7E52915117A00077C45 /* DiaryTitleContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F04DE7E32915117A00077C45 /* DiaryTitleContentCell.xib */; };
 		F064B6FB2913C15A0078B8A6 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064B6FA2913C15A0078B8A6 /* UITextField.swift */; };
+		F0766F42291A3E420027AAE6 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0766F41291A3E420027AAE6 /* LoadingManager.swift */; };
 		F0A0AF67290FBDC80014B984 /* DetailDiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0AF66290FBDC80014B984 /* DetailDiaryVC.swift */; };
 		F0A0AF6E290FDC250014B984 /* DiaryDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0AF6C290FDC250014B984 /* DiaryDateCell.swift */; };
 		F0A0AF6F290FDC250014B984 /* DiaryDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A0AF6D290FDC250014B984 /* DiaryDateCell.xib */; };
@@ -58,6 +59,7 @@
 		F04DE7E22915117A00077C45 /* DiaryTitleContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTitleContentCell.swift; sourceTree = "<group>"; };
 		F04DE7E32915117A00077C45 /* DiaryTitleContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryTitleContentCell.xib; sourceTree = "<group>"; };
 		F064B6FA2913C15A0078B8A6 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		F0766F41291A3E420027AAE6 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		F0A0AF66290FBDC80014B984 /* DetailDiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryVC.swift; sourceTree = "<group>"; };
 		F0A0AF6C290FDC250014B984 /* DiaryDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDateCell.swift; sourceTree = "<group>"; };
 		F0A0AF6D290FDC250014B984 /* DiaryDateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDateCell.xib; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				F0AD87FF29094E2300D35136 /* ImageManager.swift */,
 				F0AD8801290950F800D35136 /* ColorManager.swift */,
 				F0D7EF5D290EA4E1009D4A73 /* UserDefaultsManager.swift */,
+				F0766F41291A3E420027AAE6 /* LoadingManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				F0AD87DF2909499A00D35136 /* MainVC.swift in Sources */,
 				F007D6DC291104D20036CDB7 /* DiaryEditorMode.swift in Sources */,
 				F0D7EF5E290EA4E1009D4A73 /* UserDefaultsManager.swift in Sources */,
+				F0766F42291A3E420027AAE6 /* LoadingManager.swift in Sources */,
 				F0D7EF60290EA874009D4A73 /* Diary.swift in Sources */,
 				F04DE7E42915117A00077C45 /* DiaryTitleContentCell.swift in Sources */,
 				F0AD880029094E2300D35136 /* ImageManager.swift in Sources */,
