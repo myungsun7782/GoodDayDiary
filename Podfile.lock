@@ -679,6 +679,9 @@ PODS:
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
     - GTMSessionFetcher/Core (~> 2.1)
+  - FirebaseStorageUI (12.3.0):
+    - FirebaseStorage (< 11.0, >= 8.0)
+    - SDWebImage (~> 5.6)
   - FSCalendar (2.8.4)
   - GoogleAppMeasurement (10.0.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.0.0)
@@ -801,6 +804,9 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - SDWebImage (5.14.0):
+    - SDWebImage/Core (= 5.14.0)
+  - SDWebImage/Core (5.14.0)
   - SnapKit (5.6.0)
   - SteviaLayout (4.7.3)
   - SwiftDate (7.0.0)
@@ -816,6 +822,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Firestore
   - Firebase/Storage
+  - FirebaseStorageUI
   - FSCalendar
   - Hero
   - IQKeyboardManagerSwift
@@ -845,6 +852,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstallations
     - FirebaseStorage
+    - FirebaseStorageUI
     - FSCalendar
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -864,6 +872,7 @@ SPEC REPOS:
     - RxKeyboard
     - RxRelay
     - RxSwift
+    - SDWebImage
     - SnapKit
     - SteviaLayout
     - SwiftDate
@@ -886,6 +895,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 5007583f3db2129de8e87f18ee63f4c86f07e7a3
   FirebaseInstallations: 7f1c9ae6bd9df6abe9c74124b38fa8740aba5df4
   FirebaseStorage: 8b0b0630e11b9f3e4a479a26cfccb70ec790ec50
+  FirebaseStorageUI: e395358d689cd64b967b2402939ee0f503de63b5
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   GoogleAppMeasurement: 7e48a3249792ac35d6f18f107f63f199a7e9d0ce
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
@@ -905,12 +915,13 @@ SPEC CHECKSUMS:
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SDWebImage: 9e391cf38577742f501055dca17e4987f6713fe1
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   YPImagePicker: f36043210c10b0783034eb1947d6e06e31c461e4
 
-PODFILE CHECKSUM: e12652daaf0fbc6bdec3a102b5eb6c5409016f21
+PODFILE CHECKSUM: ff92f602f9998124c7ab1a632904fa3b540118f5
 
 COCOAPODS: 1.11.3

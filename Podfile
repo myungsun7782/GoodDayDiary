@@ -23,4 +23,5 @@ target 'GoodDayDiary' do
   pod 'RxCocoa'
   pod 'RxSwift'
   pod 'RxKeyboard'
+  pod 'FirebaseStorageUI'
 end

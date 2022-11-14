@@ -42,6 +42,7 @@
 		F0AD880029094E2300D35136 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD87FF29094E2300D35136 /* ImageManager.swift */; };
 		F0AD8802290950F800D35136 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD8801290950F800D35136 /* ColorManager.swift */; };
 		F0AD8804290952BE00D35136 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0AD8803290952BE00D35136 /* GoogleService-Info.plist */; };
+		F0D4FCA6291B518600D1C4D1 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D4FCA5291B518600D1C4D1 /* UIImageView.swift */; };
 		F0D51C86290AA5A900ACAC83 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C85290AA5A900ACAC83 /* UIView.swift */; };
 		F0D51C88290AA79300ACAC83 /* UnregisteredDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */; };
 		F0D7EF5E290EA4E1009D4A73 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D7EF5D290EA4E1009D4A73 /* UserDefaultsManager.swift */; };
@@ -88,6 +89,7 @@
 		F0AD87FF29094E2300D35136 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F0AD8801290950F800D35136 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		F0AD8803290952BE00D35136 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F0D4FCA5291B518600D1C4D1 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		F0D51C85290AA5A900ACAC83 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		F0D51C87290AA79300ACAC83 /* UnregisteredDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredDiaryView.swift; sourceTree = "<group>"; };
 		F0D7EF5D290EA4E1009D4A73 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				F0D51C85290AA5A900ACAC83 /* UIView.swift */,
 				F064B6FA2913C15A0078B8A6 /* UITextField.swift */,
+				F0D4FCA5291B518600D1C4D1 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				F0A0AF83290FF8060014B984 /* DetailImageVC.swift in Sources */,
 				F0AD87FA29094DB100D35136 /* FontManager.swift in Sources */,
 				F007D6DF29110AA30036CDB7 /* DiaryButtonCell.swift in Sources */,
+				F0D4FCA6291B518600D1C4D1 /* UIImageView.swift in Sources */,
 				F0A0AF72290FE1FF0014B984 /* DiaryPlaceCell.swift in Sources */,
 				F0AD87FC29094DD900D35136 /* TimeManager.swift in Sources */,
 				F0A0AF67290FBDC80014B984 /* DetailDiaryVC.swift in Sources */,

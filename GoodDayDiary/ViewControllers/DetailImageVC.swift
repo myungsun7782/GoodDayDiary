@@ -15,7 +15,8 @@ class DetailImageVC: UIViewController {
     @IBOutlet weak var detailImageView: UIImageView!
     
     // UIImage
-    var detailImage: UIImage!
+    var detailImage: UIImage?
+    var detailPhotoImageId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +24,28 @@ class DetailImageVC: UIViewController {
     }
     
     private func initUI() {
-        containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapContainerView)))
+        if let detailImage = detailImage {
+            containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapContainerView)))
+            
+            UIView.transition(with: detailImageView,
+                              duration: 2,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.detailImageView.image = detailImage
+            })
+        }
         
-        UIView.transition(with: detailImageView,
-                          duration: 2,
-                          options: .transitionCrossDissolve,
-                          animations: {
-            self.detailImageView.image = self.detailImage
-        })
+        if let datailPhotoImageId = detailPhotoImageId {
+            containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapContainerView)))
+            
+            UIView.transition(with: detailImageView,
+                              duration: 2,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.detailImageView.fetchImage(photoId: datailPhotoImageId)
+            })
+        }
+
     }
     
     @objc private func tapContainerView(_: UIView) {

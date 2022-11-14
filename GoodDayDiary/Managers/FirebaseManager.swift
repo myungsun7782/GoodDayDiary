@@ -18,6 +18,49 @@ class FirebaseManager {
     
     private init() {}
     
+    func uploadImage(imgList: Array<UIImage>, handler: @escaping (_ photoIdList: Array<String>) -> ()) {
+        var photoIdList = Array<(String, Bool)>() // @param1: photoId, @param2: isDone
+        
+        for _ in imgList {
+            photoIdList.append((UUID().uuidString, false))
+        }
+        
+        for (idx, img) in imgList.enumerated() {
+            var data = Data()
+            data = img.jpegData(compressionQuality: 0.8)!
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/png"
+            
+            storage.reference().child(photoIdList[idx].0).putData(data, metadata: metaData) { (md, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                } else {
+                    print("Successfully Upload Photo")
+                    photoIdList[idx].1 = true
+                    if self.isImageListUploadDone(photoIdList: photoIdList) {
+                        var resultList = Array<String>()
+                        
+                        for p in photoIdList {
+                            resultList.append(p.0)
+                        }
+                        handler(resultList)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func isImageListUploadDone(photoIdList: Array<(String, Bool)>) -> Bool {
+        for photoId in photoIdList {
+            if !photoId.1 {
+                return false
+            }
+        }
+        return true
+    }
+    
     func uploadImage(img: UIImage, filePath: String) {
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
@@ -33,13 +76,6 @@ class FirebaseManager {
         }
     }
     
-//    func fetchImage(imgView: UIImageView, photoFilePath: String) {
-//        storage.reference(forURL: stroageUrl + photoFilePath).downloadURL { (url, error) in
-//            let data = NSData(contentsOf: url!)
-//            let image = UIImage(data: data! as Data)
-//            imgView.image = image
-//        }
-//    }
     func downloadImage(photoFilePath: String, completion: @escaping (UIImage?) -> Void) {
         let storageReference = Storage.storage().reference(forURL: storageUrl + photoFilePath)
         let megaByte = Int64(1 * 1024 * 1024)

@@ -20,7 +20,9 @@ class DiaryPhotoCell: UITableViewCell {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
     // Variables
-    var photoList = Array<UIImage>()
+    var photoList: Array<UIImage>?
+    var photoIdList: Array<String>?
+    var diaryEditorMode: DiaryEditorMode!
     
     // Constants
     let TITLE_FONT_SIZE: CGFloat = 20
@@ -45,9 +47,13 @@ class DiaryPhotoCell: UITableViewCell {
         titleLabel.font = FontManager.shared.getAppleSDGothicNeoBold(fontSize: TITLE_FONT_SIZE)
     }
     
-    func setData(detailDiaryVC: DetailDiaryVC, photoList: Array<UIImage>) {
+    func setData(diaryEditorMode: DiaryEditorMode, detailDiaryVC: DetailDiaryVC, photoList: Array<UIImage>?, photoIdList: Array<String>?) {
+        self.diaryEditorMode = diaryEditorMode // 값이 무조건 넘어온다. (.new or .edit)
         self.detailDiaryVC = detailDiaryVC
+        
         self.photoList = photoList
+        self.photoIdList = photoIdList
+        
         photoCollectionView.reloadData()
     }
 }
@@ -58,7 +64,23 @@ extension DiaryPhotoCell: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : photoList.count
+        if section == 0 {
+            return 1
+        } else {
+            if diaryEditorMode == .new {
+                guard let photoList = photoList else { return 0 }
+                return photoList.count
+            }
+            
+            // diaryEditorMode == .edit
+            guard let photoIdList = photoIdList else {
+                if !photoList!.isEmpty {
+                    return photoList!.count
+                }
+                return 0
+            }
+            return photoIdList.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,14 +90,38 @@ extension DiaryPhotoCell: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        cell.photoImageView.image = photoList[indexPath.row]
+        if diaryEditorMode == .new {
+            cell.photoImageView.image = photoList![indexPath.row]
+        } else if diaryEditorMode == .edit {
+            print("edit called")
+            if !photoList!.isEmpty {
+                print("photoList is not Empty")
+                cell.photoImageView.image = photoList![indexPath.row]
+            } else {
+                print("PhotoList is Empty")
+                cell.photoImageView.fetchImage(photoId: photoIdList![indexPath.row])
+            }
+        }
+        
         cell.deleteButton.rx.tap
             .subscribe(onNext: { _ in
-                if let detailDiaryVC = self.detailDiaryVC {
-                    detailDiaryVC.photoList.remove(at: indexPath.row)
+                if self.diaryEditorMode == .new {
+                    self.photoList?.remove(at: indexPath.row)
+                    if let detailDiaryVC = self.detailDiaryVC {
+                        detailDiaryVC.photoList.remove(at: indexPath.row)
+                    }
+                } else if self.diaryEditorMode == .edit {
+                    // .edit 상태일 때 photo를 등록하지 않은 상태여서 다시 등록하는 경우
+                    if !self.photoList!.isEmpty {
+                        self.photoList?.remove(at: indexPath.row)
+                        if let detailDiaryVC = self.detailDiaryVC {
+                            detailDiaryVC.photoList.remove(at: indexPath.row)
+                        }
+                    } else {
+                        self.photoIdList?.remove(at: indexPath.row)
+                    }
                 }
-                
-                self.photoList.remove(at: indexPath.row)
+
                 self.photoCollectionView!.reloadData()
             })
             .disposed(by: cell.disposeBag)
@@ -92,13 +138,23 @@ extension DiaryPhotoCell: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let detailDiaryVC = detailDiaryVC {
             if indexPath.section == 0 {
-                if photoList.count == NUM_PHOTO_MAX {
-                    detailDiaryVC.presentPhotoMaxAlert()
-                } else {
-                    detailDiaryVC.presentImagePicker(numPhotoMax: NUM_PHOTO_MAX)
+                if let photoList = photoList {
+                    if photoList.count == NUM_PHOTO_MAX {
+                        detailDiaryVC.presentPhotoMaxAlert()
+                    } else {
+                        detailDiaryVC.presentImagePicker(numPhotoMax: NUM_PHOTO_MAX)
+                    }
                 }
             } else { // 사진 목록 section
-                detailDiaryVC.presentDetailImageVC(detailImage: photoList[indexPath.row])
+                if diaryEditorMode == .new {
+                    if let photoList = photoList {
+                        detailDiaryVC.presentDetailImageVC(detailImage: photoList[indexPath.row])
+                    }
+                } else if diaryEditorMode == .edit {
+                    if let photoIdList = photoIdList {
+                        detailDiaryVC.presentDetailImageVC(photoId: photoIdList[indexPath.row])
+                    }
+                }
             }
         }
     }

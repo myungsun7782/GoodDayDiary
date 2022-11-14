@@ -154,7 +154,7 @@ final class MainVC: UIViewController {
     @objc private func tapRegisterButton() {
         // MARK: - DetailDiaryVC 화면 이동 --> 새로운 일기장 추가
         let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
-        
+        detailDiaryVC.mainVC = self
         detailDiaryVC.diaryEditorMode = .new
         detailDiaryVC.diaryDate = selectedDate
         detailDiaryVC.diaryDelegate = self
@@ -171,7 +171,7 @@ final class MainVC: UIViewController {
     @objc private func tapSeeMoreButton() {
         // MARK: - DetailDiaryVC 화면 이동 --> 기존 일기장 수정
         let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
-        
+        detailDiaryVC.mainVC = self
         detailDiaryVC.diaryEditorMode = .edit
         detailDiaryVC.diaryDate = selectedDate
         detailDiaryVC.diaryDelegate = self
@@ -182,7 +182,7 @@ final class MainVC: UIViewController {
         present(detailDiaryVC, animated: true)
     }
     
-    private func configureDiaryView(diaryDate: Date) {
+    func configureDiaryView(diaryDate: Date) {
         // 해당 diaryDate에 일기장이 등록되어 있는 경우(Diary Instance 존재)
         if registeredDiaryDateList.contains(TimeManager.shared.dateToYearMonthDay(date: diaryDate)) {
             let diaryObject = searchDiaryObject(diaryDate: diaryDate)
@@ -195,23 +195,12 @@ final class MainVC: UIViewController {
             registeredDiaryView.diaryTitleLabel.text = diaryObject.title
             registeredDiaryView.diaryContentsLabel.text = diaryObject.contents
             registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
-//            if let photoUrlList = diaryObject.photoUrlList {
-//                // 빈 배열일 경우 --> 해당 날짜에 아무 이미지도 등록되어 있지 않음
-//                if photoUrlList.isEmpty {
-//                    registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
-//                } else {
-//                    FirebaseManager.shared.downloadImage(photoFilePath: photoUrlList[0]) { [weak self] image in
-//                        self?.registeredDiaryView.diaryImageView.image = image
-//                    }
-//                }
-//            }
-//            guard let photoIdList = diaryObject.photoUrlList else {
-//                registeredDiaryView.diaryImageView.image = UIImage(named: "SplashImage")
-//                return
-//            }
-//            FirebaseManager.shared.downloadImage(photoFilePath: photoIdList[0]) { [weak self] image in
-//                self!.registeredDiaryView.diaryImageView.image = image
-//            }
+            if let photoUrlList = diaryObject.photoUrlList {
+                // 빈 배열일 경우 --> 해당 날짜에 아무 이미지도 등록되어 있지 않음
+                if !photoUrlList.isEmpty {
+                    registeredDiaryView.diaryImageView.fetchImage(photoId: photoUrlList[0])
+                }
+            }
         } else {
             selectedDate = diaryDate
             configureUnregisteredDiaryView()
@@ -285,37 +274,27 @@ extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
 // DiaryDelegate
 extension MainVC: DiaryDelegate {
     func manageDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode) {
+        selectedDate = diaryObj.date
         if diaryEditorMode == .new {
             // MARK: - 일기장 추가 후 로직 구현
             diaryList.append(diaryObj)
             UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
             registeredDiaryDateList.append(TimeManager.shared.dateToYearMonthDay(date: diaryObj.date))
-            selectedDate = diaryObj.date
-            configureDiaryView(diaryDate: selectedDate)
-//            guard let photoList = photoList, !photoList.isEmpty else {
-//                registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
-//                return
-//            }
-//            registeredDiaryView.diaryImageView.image = photoList[0]
         } else if diaryEditorMode == .edit {
             // MARK: - 일기장 수정 후 로직 구현
             diaryList[getDiaryObjectIndex(diary: diaryObj)] = diaryObj
             UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
-            selectedDate = diaryObj.date
-            configureDiaryView(diaryDate: selectedDate)
+
         } else if diaryEditorMode == .delete {
             // MARK: - 일기장 삭제 후 로직 구현
             registeredDiaryDateList.remove(at: getDiaryObjectIndex(diary: diaryObj))
             diaryList.remove(at: getDiaryObjectIndex(diary: diaryObj))
             UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
             selectedDate = diaryObj.date
-            configureDiaryView(diaryDate: selectedDate)
         }
-        calendarView.reloadData()
-        LoadingManager.shared.showLoading()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            LoadingManager.shared.hideLoading()
-        }
+        
+        self.configureDiaryView(diaryDate: self.selectedDate)
+        self.calendarView.reloadData()
     }
 }
 

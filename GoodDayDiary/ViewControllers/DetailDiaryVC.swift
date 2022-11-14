@@ -35,9 +35,9 @@ class DetailDiaryVC: UIViewController {
     var diaryEditorMode: DiaryEditorMode!
     var diaryDate: Date!
     var diaryDelegate: DiaryDelegate?
-    var photoIdList = Array<String>()
     var diaryTitleContentCell: DiaryTitleContentCell?
     var diaryObj: Diary?
+    var mainVC: MainVC?
     
     // Constants
     let SECTION_COUNT: Int = 1
@@ -77,10 +77,27 @@ class DetailDiaryVC: UIViewController {
                     if let diaryTitleContentCell = self.diaryTitleContentCell {
                         guard let title = diaryTitleContentCell.titleTextField.text else { return }
                         guard let content = diaryTitleContentCell.contentTextView.text else { return }
-                        self.uploadImages() // 이미지 FireStorage에 업로드
-                        let diary = Diary(date: date, title: title, contents: content, photoUrlList: self.photoIdList)
-                        self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: self.diaryEditorMode)
-                        self.dismiss(animated: true)
+                        
+                        
+                        if self.photoList.isEmpty { // 사진을 등록하지 않고, 일기를 추가하는 경우 --> photoList의 값이 들어 있지 않는 경우
+                            let diary = Diary(date: date, title: title, contents: content, photoUrlList: nil)
+                            self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: .new)
+                            LoadingManager.shared.showLoading()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                LoadingManager.shared.hideLoading()
+                                self.dismiss(animated: true)
+                            }
+                        } else { // 사진을 등록해서, photoList 안에 값이 들어 있는 경우
+                            LoadingManager.shared.showLoading()
+                            FirebaseManager.shared.uploadImage(imgList: self.photoList,
+                                                               handler: { (resultList) in
+                                LoadingManager.shared.hideLoading()
+                                
+                                let diary = Diary(date: date, title: title, contents: content, photoUrlList: resultList)
+                                self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: .new)
+                                self.dismiss(animated: true)
+                            })
+                        }
                     }
                 } else if self.diaryEditorMode == .edit {
                     // MARK: - 일기장 수정 로직 구현
@@ -91,7 +108,9 @@ class DetailDiaryVC: UIViewController {
                         diary.title = title
                         diary.contents = content
                         self.diaryDelegate?.manageDiary(diary, photoList: self.photoList, diaryEditorMode: .edit)
-                        self.dismiss(animated: true)
+                        self.dismiss(animated: true) {
+                            LoadingManager.shared.showLoading()
+                        }
                     }
                 }
             })
@@ -182,6 +201,15 @@ class DetailDiaryVC: UIViewController {
         present(detailImageVC, animated: true)
     }
     
+    func presentDetailImageVC(photoId: String) {
+        let detailImageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailImageVC") as! DetailImageVC
+        
+        detailImageVC.detailPhotoImageId = photoId
+        detailImageVC.modalTransitionStyle = .crossDissolve
+        detailImageVC.modalPresentationStyle = .overFullScreen
+        present(detailImageVC, animated: true)
+    }
+    
     func configureTextViewKeyboard() {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardHeight in
@@ -223,13 +251,6 @@ class DetailDiaryVC: UIViewController {
         }
     }
     
-    private func uploadImages() {
-        for image in photoList {
-            let photoId = UUID().uuidString
-            photoIdList.append(photoId)
-            FirebaseManager.shared.uploadImage(img: image, filePath: photoId)
-        }
-    }
 }
 
 // UITableView
@@ -271,8 +292,11 @@ extension DetailDiaryVC: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryPhotoCell", for: indexPath) as! DiaryPhotoCell
-            cell.setData(detailDiaryVC: self, photoList: photoList)
-            
+            print("setData!!!")
+            cell.setData(diaryEditorMode: diaryEditorMode,
+                         detailDiaryVC: self,
+                         photoList: photoList,
+                         photoIdList: diaryObj?.photoUrlList)
             return cell
         }
         return UITableViewCell()

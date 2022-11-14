@@ -63,7 +63,13 @@ class DiaryDateCell: UITableViewCell {
         let alert = UIAlertController(title: "삭제", message: "정말로 해당 날짜의 일기를 삭제하시겠습니까?", preferredStyle: .alert)
         let deleteButton = UIAlertAction(title: "삭제", style: .destructive) { _ in
             detailDiaryVC.diaryDelegate?.manageDiary(detailDiaryVC.diaryObj!, photoList: detailDiaryVC.photoList, diaryEditorMode: .delete)
-            detailDiaryVC.dismiss(animated: true)
+            LoadingManager.shared.showLoading()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                LoadingManager.shared.hideLoading()
+                detailDiaryVC.dismiss(animated: true)
+            }
+            
+            
         }
         let cancelButon = UIAlertAction(title: "취소", style: .cancel)
         
