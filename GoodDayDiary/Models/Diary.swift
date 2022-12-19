@@ -12,9 +12,11 @@ protocol DiaryDelegate: AnyObject {
 }
 
 struct Diary: Codable {
-    var date: Date!
-    var title: String!
-    var contents: String!
+    var diaryId: String
+    var dateStr: String
+    var dateTimeStamp: Int
+    var title: String
+    var contents: String
     var photoUrlList: [String]?
 //    var place: String?
 }
