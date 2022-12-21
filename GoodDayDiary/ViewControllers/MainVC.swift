@@ -8,6 +8,8 @@
 import UIKit
 import FSCalendar
 import FirebaseFirestore
+import RxSwift
+import RxCocoa
 
 final class MainVC: UIViewController {
     // UILabel
@@ -44,30 +46,69 @@ final class MainVC: UIViewController {
     let CALENDAR_HEADER_TITLE_OFFSET_X: Double = -75
     let CALENDAR_HEADER_TITLE_OFFSET_Y: Double = 0
     
+    // RxSwift
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
         initUI()
+        action()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setData()
         calendarView.reloadData()
     }
     
     private func initUI() {
         configureLabels()
         configureCalendarView()
-        selectedDate = Date()
-        configureDiaryView(diaryDate: selectedDate)
+    }
+    
+    private func action() {
+        unRegisteredDiaryView.registerButton.rx.tap
+            .subscribe(onNext: { _ in
+                // MARK: - DetailDiaryVC 화면 이동 --> 새로운 일기장 추가
+                let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
+                detailDiaryVC.mainVC = self
+                detailDiaryVC.diaryEditorMode = .new
+                detailDiaryVC.diaryDate = self.selectedDate
+                detailDiaryVC.diaryDelegate = self
+                detailDiaryVC.modalPresentationStyle = .overFullScreen
+                detailDiaryVC.modalTransitionStyle = .crossDissolve
+                
+                self.present(detailDiaryVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        registeredDiaryView.seeMoreButton.rx.tap
+            .subscribe(onNext: { _ in
+                let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
+                detailDiaryVC.mainVC = self
+                detailDiaryVC.diaryEditorMode = .edit
+                detailDiaryVC.diaryDate = self.selectedDate
+                detailDiaryVC.diaryDelegate = self
+                detailDiaryVC.diaryObj = self.searchDiaryObject(diaryDate: self.selectedDate)
+                detailDiaryVC.modalPresentationStyle = .overFullScreen
+                detailDiaryVC.modalTransitionStyle = .crossDissolve
+                
+                self.present(detailDiaryVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setData() {
-        diaryList = UserDefaultsManager.shared.fetchDiaryList()
-        registeredDiaryDateList = []
-        diaryList.forEach { diary in
-            registeredDiaryDateList.append(TimeManager.shared.dateToYearMonthDay(date: diary.date))
+        // MARK: - Cloud Firestore 사용으로 바꾸기! -> UserDefaults에 저장하는 코드 삭제하기
+        FirebaseManager.shared.fetchDiaryList { diaryList in
+            self.diaryList = diaryList
+            self.registeredDiaryDateList = []
+            self.diaryList.forEach { diary in
+                self.registeredDiaryDateList.append(diary.dateStr)
+            }
+            self.selectedDate = Date() // 오늘 날짜로 설정
+            self.configureDiaryView(diaryDate: self.selectedDate)
+            self.calendarView.reloadData()
         }
     }
     
@@ -107,7 +148,6 @@ final class MainVC: UIViewController {
         unRegisteredDiaryView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(unRegisteredDiaryView)
         setUnRegisteredDiaryViewConstraints()
-        setUpRegisterButtonAction()
     }
     
     private func setUnRegisteredDiaryViewConstraints() {
@@ -131,7 +171,7 @@ final class MainVC: UIViewController {
         registeredDiaryView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(registeredDiaryView)
         setRegisteredDiaryViewConstraints()
-        setUpSeeMoreButtonAction()
+        
     }
     
     private func setRegisteredDiaryViewConstraints() {
@@ -147,41 +187,6 @@ final class MainVC: UIViewController {
         ])
     }
     
-    private func setUpRegisterButtonAction() {
-        unRegisteredDiaryView.registerButton.addTarget(self, action: #selector(tapRegisterButton), for: .touchUpInside)
-    }
-    
-    @objc private func tapRegisterButton() {
-        // MARK: - DetailDiaryVC 화면 이동 --> 새로운 일기장 추가
-        let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
-        detailDiaryVC.mainVC = self
-        detailDiaryVC.diaryEditorMode = .new
-        detailDiaryVC.diaryDate = selectedDate
-        detailDiaryVC.diaryDelegate = self
-        detailDiaryVC.modalPresentationStyle = .overFullScreen
-        detailDiaryVC.modalTransitionStyle = .crossDissolve
-        
-        present(detailDiaryVC, animated: true)
-    }
-    
-    private func setUpSeeMoreButtonAction() {
-        registeredDiaryView.seeMoreButton.addTarget(self, action: #selector(tapSeeMoreButton), for: .touchUpInside)
-    }
-    
-    @objc private func tapSeeMoreButton() {
-        // MARK: - DetailDiaryVC 화면 이동 --> 기존 일기장 수정
-        let detailDiaryVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailDiaryVC") as! DetailDiaryVC
-        detailDiaryVC.mainVC = self
-        detailDiaryVC.diaryEditorMode = .edit
-        detailDiaryVC.diaryDate = selectedDate
-        detailDiaryVC.diaryDelegate = self
-        detailDiaryVC.diaryObj = searchDiaryObject(diaryDate: selectedDate)
-        detailDiaryVC.modalPresentationStyle = .overFullScreen
-        detailDiaryVC.modalTransitionStyle = .crossDissolve
-        
-        present(detailDiaryVC, animated: true)
-    }
-    
     func configureDiaryView(diaryDate: Date) {
         // 해당 diaryDate에 일기장이 등록되어 있는 경우(Diary Instance 존재)
         if registeredDiaryDateList.contains(TimeManager.shared.dateToYearMonthDay(date: diaryDate)) {
@@ -191,18 +196,20 @@ final class MainVC: UIViewController {
             registeredDiaryView.isHidden = false
             unRegisteredDiaryView.isHidden = true
             animateRegisteredDiaryView()
-            registeredDiaryView.dateLabel.text = TimeManager.shared.dateToYearMonthDay(date: diaryObject.date)
+//            registeredDiaryView.dateLabel.text = TimeManager.shared.dateToYearMonthDay(date: diaryObject.date)
             registeredDiaryView.diaryTitleLabel.text = diaryObject.title
             registeredDiaryView.diaryContentsLabel.text = diaryObject.contents
             registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
-            if let photoUrlList = diaryObject.photoUrlList {
-                // 빈 배열일 경우 --> 해당 날짜에 아무 이미지도 등록되어 있지 않음
-                if !photoUrlList.isEmpty {
-                    registeredDiaryView.diaryImageView.fetchImage(photoId: photoUrlList[0])
-                }
+            guard let photoUrlList = diaryObject.photoUrlList else {
+                registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
+                return
+            }
+            if !photoUrlList.isEmpty {
+                registeredDiaryView.diaryImageView.fetchImage(photoId: photoUrlList[0])
+            } else {
+                registeredDiaryView.diaryImageView.image = ImageManager.shared.getImage(.BUTTERFLY_IMAGE)
             }
         } else {
-            selectedDate = diaryDate
             configureUnregisteredDiaryView()
             unRegisteredDiaryView.isHidden = false
             registeredDiaryView.isHidden = true
@@ -232,7 +239,7 @@ final class MainVC: UIViewController {
         let diaryDateStr = TimeManager.shared.dateToYearMonthDay(date: diaryDate)
         
         for diary in diaryList {
-            if diaryDateStr == TimeManager.shared.dateToYearMonthDay(date: diary.date) {
+            if diaryDateStr == diary.dateStr {
                 diaryObject = diary
                 break
             }
@@ -243,7 +250,7 @@ final class MainVC: UIViewController {
     private func getDiaryObjectIndex(diary: Diary) -> Int {
         var diaryIndex: Int!
         for (idx, diaryObj) in diaryList.enumerated() {
-            if diaryObj.date == diary.date {
+            if diaryObj.diaryId == diary.diaryId {
                 diaryIndex = idx
                 break
             }
@@ -273,26 +280,23 @@ extension MainVC: FSCalendarDataSource, FSCalendarDelegate {
 
 // DiaryDelegate
 extension MainVC: DiaryDelegate {
-    func manageDiary(_ diaryObj: Diary, photoList: [UIImage]?, diaryEditorMode: DiaryEditorMode) {
-        selectedDate = diaryObj.date
+    func manageDiary(_ diaryObj: Diary, diaryEditorMode: DiaryEditorMode) {
+//        selectedDate = diaryObj.date
         if diaryEditorMode == .new {
             // MARK: - 일기장 추가 후 로직 구현
             diaryList.append(diaryObj)
-            UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
-            registeredDiaryDateList.append(TimeManager.shared.dateToYearMonthDay(date: diaryObj.date))
+            FirebaseManager.shared.addDiaryData(diary: diaryObj)
+            registeredDiaryDateList.append(diaryObj.dateStr)
         } else if diaryEditorMode == .edit {
             // MARK: - 일기장 수정 후 로직 구현
             diaryList[getDiaryObjectIndex(diary: diaryObj)] = diaryObj
-            UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
-
+            FirebaseManager.shared.modifyDiaryData(diaryId: diaryObj.diaryId, title: diaryObj.title, content: diaryObj.contents, photoUrlList: diaryObj.photoUrlList!)
         } else if diaryEditorMode == .delete {
             // MARK: - 일기장 삭제 후 로직 구현
             registeredDiaryDateList.remove(at: getDiaryObjectIndex(diary: diaryObj))
             diaryList.remove(at: getDiaryObjectIndex(diary: diaryObj))
-            UserDefaultsManager.shared.saveDiaryList(diaryList: diaryList)
-            selectedDate = diaryObj.date
+            FirebaseManager.shared.deleteDiaryData(diaryId: diaryObj.diaryId)
         }
-        
         self.configureDiaryView(diaryDate: self.selectedDate)
         self.calendarView.reloadData()
     }
