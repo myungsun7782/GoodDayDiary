@@ -24,7 +24,7 @@ class TimeManager {
     func dateToYearMonthDay(date: Date) -> String {
         let formatter = DateFormatter()
         
-        formatter.dateFormat = "yyyy. MM. dd"
+        formatter.dateFormat = "yyyy. MM. dd (E)"
         
         return formatter.string(from: date)
     }
